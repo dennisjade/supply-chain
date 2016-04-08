@@ -1,0 +1,20 @@
+div(style='top:2px;left:2px;')
+  nav.navbar.navbar-default.navbar-inverse.navbar-fixed-top(style="background-image: linear-gradient(-12deg, #036ded 19%,#a7e5ff 81%);")
+    .container-fluid
+      .navbar-header
+        img(alt='Brand', src='/images/logo-icon2.png')
+
+      if page!='index'
+        ul.nav.navbar-nav.navbar-right(style='font-size:17px; font-weight:bold;')
+          li
+            a(href='#') 
+              span.glyphicon.glyphicon-usd
+              | ifundIT
+          li
+            a(href='#') 
+              span.glyphicon.glyphicon-link
+              | CABRE
+          li
+            a(href='#') 
+              span.glyphicon.glyphicon-question-sign
+              | About

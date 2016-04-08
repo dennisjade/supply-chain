@@ -1,0 +1,37 @@
+{
+  "name": "Supply Chain Engineering",
+  "authors": [
+    "dencio.toribio <dencio.toribio@ph.ibm.com>"
+  ],
+  "description": "Cognitive enough supply chain",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "supply",
+    "chain",
+    "cognitive",
+    "engineering",
+    "singapore",
+    "sg"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.2",
+    "moment": "^2.12.0",
+    "underscore": "^1.8.3",
+    "jquery-ui": "^1.11.4",
+    "jquery.sidebar": "*",
+    "drawer": "^3.1.0",
+    "iscroll": "^5.2.0"
+  }
+}

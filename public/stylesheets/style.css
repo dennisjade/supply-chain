@@ -1,0 +1,51 @@
+html, body, .container-table {
+  height: 100%;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container-table {
+  display: table;
+}
+
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.homepage-container{
+  /*background-color: #106eb8;*/
+  background-image: linear-gradient(-12deg, #036ded 19%,#5bd6dd 81%);
+  color: white;
+  height: 100%;
+}
+
+.cognitive-o{
+  top:-17px;
+  position:relative;
+}
+
+.a-important{
+  color: white !important;
+}
+
+.footer{
+  left: 0 !important; /*will override bootstrap default 0*/
+  padding: 5px;
+}
+
+.float-right{
+  float:right !important;
+}
+
+/*
+.speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+.speech input {border: 0; width: 240px; display: inline-block; height: 30px;}
+.speech img {float: right; width: 40px }
+*/

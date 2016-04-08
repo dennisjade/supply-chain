@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Cognitive Supply Chain Engineering
+
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(name='keywords', content='cognitive supply chain engineering')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css', type='text/css', media='all')
+    if page!='index'
+      link(rel='stylesheet', href='/bower_components/drawer/dist/css/drawer.min.css')
+  body
+    block content
+
+    script(src='/bower_components/jquery/dist/jquery.min.js')
+    script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")
+    script(src='/bower_components/moment/min/moment.min.js')
+    script(src='/bower_components/underscore/underscore-min.js')
+    script(src='/javascripts/common.js')
+
+    if page!='index'
+      script(src='/bower_components/iscroll/build/iscroll.js')
+      script(src='/bower_components/drawer/dist/js/drawer.min.js')
+      script(src='/javascripts/sidebar.js')

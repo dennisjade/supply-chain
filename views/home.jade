@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .homepage-container.drawer.drawer--left
+    include header
+    include navigation
+
+    .container.container-table
+      .row.vertical-center-row
+        .text-center.col-md-8.col-md-offset-2(style='font-size:48px;font-weight:bold;color:black') 
+          form#homeSearchForm(method='get', action='')
+            .search(style='font-size:18px')
+              input#transcript(type='text', name='q', placeholder='Speak to search', style='width:350px') 
+              | &nbsp;
+              button.btn.btn-primary Search 
+              | &nbsp; &nbsp;
+              a#microphone(href='javascript:void(0)')
+                img(src='/images/mic.gif')
+
+    include footer

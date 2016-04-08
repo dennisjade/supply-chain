@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .homepage-container
+    include header
+
+    .container.container-table
+      .row.vertical-center-row
+        .text-center.col-md-8.col-md-offset-2(style='font-size:48px;font-weight:bold') 
+          | C
+          span.cognitive-o
+            img(src='/images/cognitive-o.png')
+          | gnitive Supply Chain
+          br
+          | Engineering
+          hr
+          button.btn.btn-info.btn-block(style='font-size:22px',data-toggle="modal", data-target="#login-modal") Login
+
+    include login
+    include footer

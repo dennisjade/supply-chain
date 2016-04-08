@@ -1,0 +1,6 @@
+---
+# Default manifest file
+applications:
+- command: node bin/www
+  instances: 1
+  memory: 1G
