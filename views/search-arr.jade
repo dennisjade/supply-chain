@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .homepage-container.drawer.drawer--left
+    include header
+    include navigation
+
+    .container.container-table
+      .row.vertical-center-row
+        .text-center.col-md-8.col-md-offset-2(style='font-size:48px;font-weight:bold;color:black') 
+          div(style='padding-top:50px')
+            | #{classType}
+            img(src='/images/arr.jpeg',style='width:100%;max-width:800px')
+    include footer

@@ -24,4 +24,26 @@
     }
   });
 
+  $(".makeSearch").on("click", function (e){
+    //e.preventDefault();
+    var l = Ladda.create(this);
+    var data = $("#transcript").val()
+
+    l.start();
+
+    $.post("/api/analyzeSearch", 
+        { data : data },
+      function(response){
+        loadSearch(response.data)
+      }, "json")
+    .always(function() { l.stop(); });
+    
+    return false;
+  })
+
+  loadSearch= function(pageType){
+    $("input[name=classType]").val(pageType);
+    $("#submitSearchResult").submit()
+  }
+
 }).call(this)

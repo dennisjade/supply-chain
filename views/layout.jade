@@ -10,6 +10,7 @@ html
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css', type='text/css', media='all')
     if page!='index'
       link(rel='stylesheet', href='/bower_components/drawer/dist/css/drawer.min.css')
+      link(rel='stylesheet', href='/bower_components/ladda/dist/ladda-themeless.min.css')
   body
     block content
 
@@ -23,3 +24,8 @@ html
       script(src='/bower_components/iscroll/build/iscroll.js')
       script(src='/bower_components/drawer/dist/js/drawer.min.js')
       script(src='/javascripts/sidebar.js')
+      script(src='/bower_components/ladda/dist/ladda.jquery.min.js')
+      script(src='/bower_components/ladda/dist/spin.min.js')
+      script(src='/bower_components/ladda/dist/ladda.min.js')
+      script.
+        Ladda.bind( '.ladda-button', { timeout: 2000 } );

@@ -8,14 +8,16 @@ block content
     .container.container-table
       .row.vertical-center-row
         .text-center.col-md-8.col-md-offset-2(style='font-size:48px;font-weight:bold;color:black') 
-          form#homeSearchForm(method='get', action='')
+          div#homeSearchForm
             .search(style='font-size:18px')
-              input#transcript(type='text', name='q', placeholder='Speak to search', style='width:350px') 
+              input#transcript(type='text', name='search', placeholder='Speak to search', style='width:350px') 
               | &nbsp;
-              button.btn.btn-primary Search 
-              | &nbsp; &nbsp;
-              a#microphone(style='heigth',href='javascript:void(0)')
+              button.btn.btn-primary.makeSearch.ladda-button(data-style='expand-left')
+                span.ladda-label Search
+              a#microphone(style='padding-left:10px',href='javascript:void(0)')
                 img(src='/images/mic1.png')
+          form#submitSearchResult(method="GET", action="/search-result")
+            input(type="hidden", name="classType", value="")
           div(style='padding-top:50px')
             img(src='/images/worldmap.png',style='width:100%;max-width:800px')
     include footer
