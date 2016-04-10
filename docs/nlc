@@ -1,0 +1,32 @@
+{
+  "natural_language_classifier": [
+    {
+      "name": "CSCE-NLCAPI",
+      "label": "natural_language_classifier",
+      "plan": "standard",
+      "credentials": {
+        "url": "https://gateway.watsonplatform.net/natural-language-classifier/api",
+        "password": "wM58MAwHp0BR",
+        "username": "6be07bc8-abde-4c6b-bf91-ed0830b8cae0"
+      }
+    }
+  ]
+}
+
+{
+  "alchemy_api": [
+    {
+      "name": "CSCE-AlchemyAPI",
+      "label": "alchemy_api",
+      "plan": "free",
+      "credentials": {
+        "url": "https://gateway-a.watsonplatform.net/calls",
+        "apikey": "273f849bb6e9e8a4101df6d63e42bf31ea1f32ee",
+        "note": "It may take up to 5 minutes for this key to become active. This is your previously active free apikey. If you want a different one, please wait 24 hours after unbinding the key and try again."
+      }
+    }
+  ]
+}
+
+
+curl -G -u "ab4fe34c-8d95-4916-a5a7-b98775b4545b":"Zg75TE5oXY80" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/cd6394x53-nlc-919/classify" --data-urlencode "text=return rate"
