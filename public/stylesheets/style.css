@@ -68,3 +68,7 @@ a {
 .navbar-nav li a:hover{
   color: #ffffff !important;
 }
+
+.pad-right-3px{
+  padding-right: 3px;
+}

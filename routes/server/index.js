@@ -1,7 +1,7 @@
 (function() {
 
   module.exports =  function(app){
-    PPM = require('../../models/ppm')
+    //PPM = require('../../models/ppm')
 
     showIndex = function(req, res) {
       var json = {page: 'index'};
