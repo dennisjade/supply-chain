@@ -15,7 +15,7 @@
         }else{
           var result = JSON.parse(data)
           console.log(result)
-          var partNumber = commonHelper.parsePartNumber(req.body.data)
+          var partNumber = commonHelper.parsePN(req.body.data)
           console.log('partNumber', partNumber)
           //if partNumber is not found,return an error message
           if (!partNumber && result.top_class.toLowerCase()=='ppm'){

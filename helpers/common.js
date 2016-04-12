@@ -27,7 +27,8 @@
     if (text) {
         var arr = text.toUpperCase().split(/PN|PART.?NUMBER|PART.?NO{0,1}/g);
         console.log('arr',arr)
-        pn = (arr[arr.length - 1]).replace(/[^a-zA-Z0-9]/g, "");
+        pn = arr[arr.length - 1].trim().split(/\s/g)[0]
+        //pn = (arr[arr.length - 1]).replace(/[^a-zA-Z0-9]/g, "");
         console.log('pn',pn)
         pn = ((pn.length != PNLEN) ? null : pn);
     }
