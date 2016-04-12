@@ -15,7 +15,6 @@
           console.log('Error getting ARR_ALERTS: ', err);
           callback(err,null)
         } else {
-          console.log(err, rows, docs)
           callback(null, rows[0])
         }
       });
