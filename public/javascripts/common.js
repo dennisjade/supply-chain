@@ -3,7 +3,10 @@
 
   $("#microphone").on("click", function (e) {
     if (window.hasOwnProperty('webkitSpeechRecognition')) { 
+      
       $("#microphone img").attr("src", '/images/mic2.gif');
+      $("#response-message").html('');
+
       var recognition = new webkitSpeechRecognition(); 
       recognition.continuous = false;
       recognition.interimResults = false;
@@ -26,6 +29,7 @@
 
   $(".makeSearch").on("click", function (e){
     //e.preventDefault();
+    $("#response-message").html('');
     var l = Ladda.create(this);
     var data = $("#transcript").val()
 
@@ -34,16 +38,34 @@
     $.post("/api/analyzeSearch", 
         { data : data },
       function(response){
-        loadSearch(response.data)
+        if (response.status==200)
+          loadSearch(response.data)
+        else
+          $("#response-message").html(response.msg)
       }, "json")
     .always(function() { l.stop(); });
     
     return false;
   })
 
-  loadSearch= function(pageType){
-    $("input[name=classType]").val(pageType);
+  loadSearch= function(data){
+    $("input[name=classType]").val(data.classType);
+    $("input[name=partNumber]").val(data.partNumber);
     $("#submitSearchResult").submit()
+  }
+
+  if ($("#ppm-toc-weibull").length > 0){
+    successCallback = function(response){
+      $(".yesno-box").html(response.data)
+    }
+    errorCallback = function(response){
+
+    }
+
+    var partNumber= $('input[name=partNumber]').val()
+    var classType = $('input[name=classType]').val()
+    var params ='partNumber='+partNumber+'&classType='+classType
+    $.get('api/yesno-box?'+params, successCallback).error(errorCallback)
   }
 
 }).call(this)

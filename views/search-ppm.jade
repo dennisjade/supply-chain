@@ -5,10 +5,21 @@ block content
     include header
     include navigation
 
-    .container.container-table
+    #ppm-toc-weibull.container.container-table
+      input(type="hidden", name="partNumber", value="#{partNumber}")
+      input(type="hidden", name="classType", value="#{classType}")
       .row.vertical-center-row
-        .text-center.col-md-8.col-md-offset-2(style='font-size:48px;font-weight:bold;color:black')
-          div(style='padding-top:50px')
-            | #{classType}
-            img(src='/images/ppm.jpeg',style='width:100%;max-width:800px')
+        div(style='padding-top:60px')
+          .row
+              .col-md-8
+                .row
+                  .col-md-12.text-center
+                    | #{classType}
+                    img(src='/images/sample-chart.png',style='width:100%;max-width:800px')
+                  .col-md-12 Span 6
+                    img(src='/images/sample-ppmtable.png',style='width:100%;max-width:800px')
+              .col-md-4(style="padding-top:22px")
+                div.yesno-box
+                  div.spinner-center
+                    span.glyphicon.glyphicon-refresh.glyphicon-spin
     include footer

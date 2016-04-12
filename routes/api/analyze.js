@@ -1,32 +1,33 @@
 (function(){
   var request = require('request');
+  var analyzeModel = require('../../models/analyze')
+  var commonHelper = require('../../helpers/common')
 
   module.exports =  function(app){
 
     analyzeSearch = function(req, res){
       var ret = {status:200, msg:'Success', data:null}
-      //put this in a config
-      var username= "ab4fe34c-8d95-4916-a5a7-b98775b4545b"
-      var password= "Zg75TE5oXY80"
 
-      var params = {method:'GET',rejectUnauthorized:false}
-      var url= 'https://'+username+':'+password+
-        '@gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/cd6394x53-nlc-919/classify'+
-        '?text='+req.body.data
-
-      console.log('aaaaaaaa', params, url)
-      request(url, params, function(err, response, body){
+      analyzeModel.anaylyzeText(req.body.data, function(err, data){
         if (err){
           ret.status = 500;
-          ret.msg = 'Failed';
+          ret.msg = 'Failed analyzing text';
         }else{
-          var result = JSON.parse(body)
-          console.log(result.top_class)
-          ret.data = result.top_class
+          var result = JSON.parse(data)
+          console.log(result)
+          var partNumber = commonHelper.parsePartNumber(req.body.data)
+          console.log('partNumber', partNumber)
+          //if partNumber is not found,return an error message
+          if (!partNumber && result.top_class.toLowerCase()=='ppm'){
+            ret.status = 500
+            ret.msg = 'No part number found'
+          }else{
+            ret.data = {partNumber:partNumber, classType:result.top_class}
+          }
+
         }
         return res.json(ret)
       })
-      
     }
 
     app.post('/api/analyzeSearch',analyzeSearch);

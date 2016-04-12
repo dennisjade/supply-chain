@@ -7,6 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('supply-chain:server');
 var http = require('http');
+var config = require('../config')
+var ibmdb = require("ibm_db");
+
+/**
+* Create a global db connection
+*/
+global. dbConn = global.dbConn? global.dbConn : ibmdb.openSync(config.dbConnString);
 
 /**
  * Get port from environment and store in Express.
