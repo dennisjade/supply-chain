@@ -8,7 +8,6 @@
     var async = require('async')
 
     getYesNoBox = function(req, res){
-      console.log('hereeeeeee')
       var ret = {status:200, msg:'Success', data:null}
       var partNumber = req.query.partNumber
       var classType = req.query.classType
@@ -52,16 +51,21 @@
           ret.msg = 'Failed'
           return res.json(ret)
         }else{
-          var yesnoMsg= config.yesnoMsg
-          yesnoMsg = yesnoMsg.replace(/\n/g, '<br/>')
-          yesnoMsg = yesnoMsg.replace('#{classType}', '<span class="yesno-text">'+classType.toUpperCase()+'</span>')
-          yesnoMsg = yesnoMsg.replace('#{partNumber}', '<span class="yesno-text">'+partNumber.toUpperCase()+'</span>')
-          yesnoMsg = yesnoMsg.replace('#{trend1}', '<span class="yesno-text">'+data[0].PPM_FLAG_TEXT+'</span>')
-          yesnoMsg = yesnoMsg.replace('#{trend2}', '<span class="yesno-text">'+data[0].TREND_TEXT+'</span>')
-          yesnoMsg = yesnoMsg.replace('#{alertsCount}', '<span class="yesno-text">'+data[1].ALERTS_SUMMARY+'</span>')
-          yesnoMsg += '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>' 
-          ret.data = yesnoMsg
-          return res.json(ret)
+          if (!data[0]){
+            ret.data = "No information found on the DB for <span class='yesno-text'>"+classType.toUpperCase()+':'+partNumber.toUpperCase()+'</span>'
+            return res.json(ret)
+          }else{
+            var yesnoMsg= config.yesnoMsg
+            yesnoMsg = yesnoMsg.replace(/\n/g, '<br/>')
+            yesnoMsg = yesnoMsg.replace('#{classType}', '<span class="yesno-text">'+classType.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{partNumber}', '<span class="yesno-text">'+partNumber.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{trend1}', '<span class="yesno-text">'+(data[0]?data[0].PPM_FLAG_TEXT:'')+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{trend2}', '<span class="yesno-text">'+(data[0]?data[0].TREND_TEXT:'')+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{alertsCount}', '<span class="yesno-text">'+(data[1]?data[1].ALERTS_SUMMARY:'')+'</span>')
+            yesnoMsg += '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>' 
+            ret.data = yesnoMsg
+            return res.json(ret)
+          }
         }
       })
       

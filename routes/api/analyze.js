@@ -20,7 +20,7 @@
           //if partNumber is not found,return an error message
           if (!partNumber && result.top_class.toLowerCase()=='ppm'){
             ret.status = 500
-            ret.msg = 'No part number found'
+            ret.msg = 'No part number found in the question'
           }else{
             ret.data = {partNumber:partNumber, classType:result.top_class}
           }
