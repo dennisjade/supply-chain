@@ -9,6 +9,7 @@
       // create an audio stream
       var audioStream = tts.synthesize({
         text: req.query.text,
+        voice: 'en-GB_KateVoice',
         accept: req.headers.accept // let the client's browser choose what format the audio is sent in
       });
 
