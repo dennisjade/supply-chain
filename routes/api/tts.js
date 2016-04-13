@@ -36,9 +36,9 @@
 
       // you could additionally pipe the audio to a file if you wanted to save it for later
       // audioStream.pipe(fs.createWriteStream('./my-audio-fille.{wav|ogg|flac}'));
-        }
+    }
 
-        app.get('/api/text-to-speech/synthesize', synthesize)
+    app.get('/api/text-to-speech/synthesize', synthesize)
 
   }
 }).call(this)

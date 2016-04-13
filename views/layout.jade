@@ -23,9 +23,13 @@ html
     if page!='index'
       script(src='/bower_components/iscroll/build/iscroll.js')
       script(src='/bower_components/drawer/dist/js/drawer.min.js')
-      script(src='/javascripts/sidebar.js')
       script(src='/bower_components/ladda/dist/ladda.jquery.min.js')
       script(src='/bower_components/ladda/dist/spin.min.js')
       script(src='/bower_components/ladda/dist/ladda.min.js')
+      script(src='/bower_components/highcharts/highcharts.js')
+      script(src='/bower_components/highcharts/modules/exporting.js')
+      script(src='/bower_components/highcharts/themes/dark-unica.js')
+      script(src='/javascripts/sidebar.js')
+      script(src='/javascripts/highcharts.js')
       script.
         Ladda.bind( '.ladda-button', { timeout: 2000 } );
