@@ -12,12 +12,12 @@
           global.dbConn = ibmdb.openSync(config.dbConnString);
 
         var currDate = new Date()
-        var month = currDate.getMonth()-2 //minus 2 because we dont have data for the current months
+        var month = currDate.getMonth()-1 //minus 2 because we dont have data for the current months
         var year = currDate.getFullYear()
         var query = "select PPM_FLAG_TEXT,TREND_TEXT from PPM_TREND where" +
                     " IBMPN='"+partNumber.toUpperCase()+"' and PERIOD_MONTH="+month+" and PERIOD_YEAR="+year+
                     " fetch first rows only"
-
+        console.log('gettrend', query)
         global.dbConn.query(query, function (err, rows, docs) {
             if (err) {
               console.log('Error getting PPM_TREND: ', err);

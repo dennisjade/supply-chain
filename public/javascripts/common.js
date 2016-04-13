@@ -82,8 +82,8 @@
       var totalMonths = response.data.length
       var yearHeader = '<th colspan="13" class="tg-yw4l">'+startMonthYear.year+'</th>'
       var monthsHeader=''
-      var shippedQty='<td class="tg-yw4l">AL-12SX</td>'+
-                      '<td class="tg-yw4l">49Y7443</td>'+
+      var shippedQty='<td class="tg-yw4l">'+(response.data[0]?response.data[0].DRIVEFAMILY:'N/A')+'</td>'+
+                      '<td class="tg-yw4l">'+(response.data[0]?response.data[0].IBMPN:'N/A')+'</td>'+
                       '<td class="tg-yw4l">Shipped Qty</td>'
       var returnQty='<td class="tg-yw4l"></td>'+
                     '<td class="tg-yw4l"></td>'+

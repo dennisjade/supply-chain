@@ -33,6 +33,7 @@
     "jquery.sidebar": "*",
     "drawer": "^3.1.0",
     "iscroll": "^5.2.0",
-    "ladda": "^1.0.0"
+    "ladda": "^1.0.0",
+    "highcharts": "^4.2.3"
   }
 }
