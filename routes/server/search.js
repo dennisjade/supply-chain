@@ -19,6 +19,8 @@
         case 'arr' :
           var jadeFile = 'search-arr.jade'
           break;
+        default:
+          var jadeFile = 'home.jade'
       }
       return res.render(jadeFile, json)
     }

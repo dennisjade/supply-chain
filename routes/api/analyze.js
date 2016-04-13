@@ -1,28 +1,26 @@
 (function(){
-  var request = require('request');
-  var analyzeModel = require('../../models/analyze')
-  var commonHelper = require('../../helpers/common')
 
   module.exports =  function(app){
+    var request = require('request');
+    var analyzeModel = require('../../models/analyze')
+    var commonHelper = require('../../helpers/common')
 
     analyzeSearch = function(req, res){
       var ret = {status:200, msg:'Success', data:null}
-
+      console.log('aaaaaaaaaaaaaaaaa')
       analyzeModel.anaylyzeText(req.body.data, function(err, data){
         if (err){
           ret.status = 500;
-          ret.msg = 'Failed analyzing text';
+          ret.msg = 'Failed analyzing text: '+JSON.stringify(err);
         }else{
-          var result = JSON.parse(data)
-          console.log(result)
           var partNumber = commonHelper.parsePN(req.body.data)
           console.log('partNumber', partNumber)
           //if partNumber is not found,return an error message
-          if (!partNumber && result.top_class.toLowerCase()=='ppm'){
+          if (!partNumber && data.top_class.toLowerCase()=='ppm'){
             ret.status = 500
             ret.msg = 'No part number found in the question'
           }else{
-            ret.data = {partNumber:partNumber, classType:result.top_class}
+            ret.data = {partNumber:partNumber, classType:data.top_class}
           }
 
         }

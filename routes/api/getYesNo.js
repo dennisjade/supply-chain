@@ -62,7 +62,6 @@
             yesnoMsg = yesnoMsg.replace('#{trend1}', '<span class="yesno-text">'+(data[0]?data[0].PPM_FLAG_TEXT:'')+'</span>')
             yesnoMsg = yesnoMsg.replace('#{trend2}', '<span class="yesno-text">'+(data[0]?data[0].TREND_TEXT:'')+'</span>')
             yesnoMsg = yesnoMsg.replace('#{alertsCount}', '<span class="yesno-text">'+(data[1]?data[1].ALERTS_SUMMARY:'')+'</span>')
-            yesnoMsg += '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>' 
             ret.data = yesnoMsg
             return res.json(ret)
           }

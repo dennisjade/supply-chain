@@ -1,6 +1,14 @@
 
 (function() {
 
+  textToSpeech = function(text){
+    var audio = new Audio();
+
+    audio.src = '/api/text-to-speech/synthesize?text=' + encodeURIComponent(text);
+    // let the browser buffer the audio before playing
+    audio.play();
+  }
+
   $("#microphone").on("click", function (e) {
     if (window.hasOwnProperty('webkitSpeechRecognition')) { 
       
@@ -69,8 +77,11 @@
     }
 
     successCallback = function(response){
-      $(".yesno-box").html(response.data)
+      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>'
+      $(".yesno-box").html(html);
+      textToSpeech(response.data);
     }
+    
     errorCallback = function(response){
 
     }
