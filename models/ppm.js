@@ -18,7 +18,7 @@
         year -= 1
       }
       var query= "select * from PPM where IBMPN='"+partNumber.toUpperCase()+"'" +
-                  " and (PERIOD_MONTH>="+month+' and PERIOD_YEAR>='+year+')'
+                  " and (INT(PERIOD_MONTH)>="+month+' and INT(PERIOD_YEAR)>='+year+')'
       console.log('pppm table', query)
       global.dbConn.query(query, function (err, rows, docs) {
         if (err) {

@@ -15,7 +15,7 @@
         var month = currDate.getMonth()-1 //minus 2 because we dont have data for the current months
         var year = currDate.getFullYear()
         var query = "select PPM_FLAG_TEXT,TREND_TEXT from PPM_TREND where" +
-                    " IBMPN='"+partNumber.toUpperCase()+"' and PERIOD_MONTH="+month+" and PERIOD_YEAR="+year+
+                    " IBMPN='"+partNumber.toUpperCase()+"' and INT(PERIOD_MONTH)="+month+" and INT(PERIOD_YEAR)="+year+
                     " fetch first rows only"
         console.log('gettrend', query)
         global.dbConn.query(query, function (err, rows, docs) {
