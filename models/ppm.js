@@ -11,7 +11,7 @@
 
       var currDate  = new Date()
       var year = currDate.getFullYear()
-      var month = currDate.getMonth()+2
+      var month = currDate.getMonth()+2 //+2because getMonth start with 0 and  we want to include the current month in the display
 
       var tempMonth = currDate.getMonth() - 12 //get only the last
       if (tempMonth<=0){
