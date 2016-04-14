@@ -9,17 +9,10 @@
       if (!global.dbConn.connected)
         global.dbConn = ibmdb.openSync(config.dbConnString);
 
-      var currDate  = new Date()
-      var year = currDate.getFullYear()
-      var month = currDate.getMonth()+2 //+2because getMonth start with 0 and  we want to include the current month in the display
-
-      var tempMonth = currDate.getMonth() - 12 //get only the last
-      if (tempMonth<=0){
-        year -= 1
-      }
       var query= "select * from PPM where IBMPN='"+partNumber.toUpperCase()+"'" +
-                  " and (INT(PERIOD_MONTH)>="+month+' and INT(PERIOD_YEAR)>='+year+')'
+                  " and CAST((PERIOD_YEAR || '-' || PERIOD_MONTH || '-1' ) as DATE) >= current date - 12 months"
       console.log('pppm table', query)
+
       global.dbConn.query(query, function (err, rows, docs) {
         if (err) {
           console.log('Error getting PPM: ', err);

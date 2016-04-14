@@ -20,7 +20,7 @@
           return res.json(ret)
         }else{
           if (req.query.format=='highcharts'){
-            console.log(docs);
+            //console.log(docs);
             /*
             var currDate  = new Date()
             var startYear = currDate.getFullYear()
