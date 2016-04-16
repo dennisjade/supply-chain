@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .homepage-container.drawer.drawer--left
+    include header
+    include navigation
+
+    #weibull-page.container.container-table
+      input(type="hidden", name="partNumber", value="#{partNumber}")
+      input(type="hidden", name="classType", value="#{classType}")
+      input(type="hidden", name="vintage", value="#{vintage}")
+      .row.vertical-center-row
+        div(style='padding-top:60px')
+          .row
+              .col-md-8
+                .row
+                  .col-md-12.text-center
+                    #container-weibull(style="width:100%; height:400px;")
+                  .col-md-12
+                    div.weibullTable(style="padding-top:10px;padding-bottom:67px;")
+                      div.spinner-center
+                        span.glyphicon.glyphicon-refresh.glyphicon-spin
+              .col-md-4(style="padding-top:22px")
+                div.yesno-box.yesno-weibull
+                  div.spinner-center
+                    span.glyphicon.glyphicon-refresh.glyphicon-spin
+    include footer

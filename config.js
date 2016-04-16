@@ -33,7 +33,8 @@
   config.yesnoPPMMsg = props.yesnoPPMMsg || "Hi #{username}, \n\n Here is the #{classType} performance for #{partNumber} and the trend seems to be #{trend1} and #{trend2}. It's ARR got #{alertsCount} Alerts. Do you want to check its performance by Vintage?"
   config.yesnoARRMsg = props.yesnoARRMsg || "Hi #{username}, \n\n Here is the #{classType} performance for IBMPN #{partNumber}. It has #{alertsCount} alerts. Quality Index is #{qualityIndex}, rank at #{rank} position. \n\n Do you want to notify technical support team?"
   config.yesnoTCOMsg = props.yesnoTCOMsg || "Hi #{username}, \n\n Here is the #{classType} performance for IBMPN #{partNumber}.\n\n #{bucketDesc} #{flagDesc} \n\n Do you want to notify technical support team?"
-  config.yesnoWEIBULLMsg = props.yesnoWEIBULLMsg || "Hi #{username}, \n\n Here is the #{classType} performance for IBMPN #{partNumber}.\n Vintage #{vintageNumber}. \n\n A 5 year prediction for this IBMPN and vintage is #{prediction}?"
+  config.yesnoWEIBULLMsg = props.yesnoWEIBULLMsg || "Hi #{username}, \n\n Here is the #{classType} prediction for IBMPN #{partNumber}.\n Vintage #{vintageNumber}. \n\n The 5-year project for this IBMPN and vintage is #{prediction}. \n\n Do you want to notify technical support team?"
+  config.yesnoOVERALLMsg = props.yesnoOVERALLMsg || "Hi #{username}, \n\n Here is the #{classType} for IBMPN #{partNumber}.\n Vintage #{vintageNumber}. \n\n #{summaryRemarks} \n#{arrDesc} \n #{ppmDesc} \n#{tcoBucketDescAndFlag} \n#{fiveYrBucketDesc} \n\n Do you want to notify technical support team?"
 
   config.dbConnString = props.dbConnString || "DATABASE=SQLDB;HOSTNAME=75.126.155.153;PORT=50000;PROTOCOL=TCPIP;UID=user15506;PWD=SAIL2RSdn8Z3;"
 }).call(this)

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .homepage-container.drawer.drawer--left
+    include header
+    include navigation
+
+    #overall-page.container.container-table
+      input(type="hidden", name="partNumber", value="#{partNumber}")
+      input(type="hidden", name="classType", value="#{classType}")
+      .row.vertical-center-row
+        div(style='padding-top:60px')
+          .row
+            div.yesno-box.yesno-overall
+              div.spinner-center
+                span.glyphicon.glyphicon-refresh.glyphicon-spin
+    include footer

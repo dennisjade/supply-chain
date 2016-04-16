@@ -17,6 +17,9 @@
           if (!partNumber ){
             ret.status = 500
             ret.msg = 'No part number found in the question'
+          } else if (partNumber && data.top_class.toLowerCase()=='weibull' && !req.body.data.indexOf('vintage')){
+            ret.status = 500
+            ret.msg = 'No Vintage YEAR_MONTH found in the question'
           }else{
             ret.data = {partNumber:partNumber, classType:data.top_class}
           }

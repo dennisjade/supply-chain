@@ -5,6 +5,7 @@
     var ppmTrendModel = require('../../models/ppm-trend')
     var arrAlertsModel = require('../../models/arr-alerts')
     var flagMatrixModel = require('../../models/flag-matrix')
+    var weibullModel = require('../../models/weibull')
     var config = require('../../config')
     var async = require('async')
     var commonHelpers= require('../../helpers/common')
@@ -48,10 +49,30 @@
         })
       }
 
-      if (['ppm', 'arr'].indexOf(classType)>=0)
-        var fnArr = [getTrends,getAlerts]
-      else if (['tco'].indexOf(classType)>=0)
-        var fnArr = [getFlagMatrix]
+      getPrediction = function(callback){
+        weibullModel.getWeibull(partNumber, function(err, docs){
+          if (err){
+            console.log('Error getting FLAG METRIX ', err)
+            callback(err, null)
+          }else{
+            callback(null, docs)
+          }
+        })
+      }
+
+      switch (classType){
+        case 'ppm':
+        case 'arr':
+          var fnArr = [getTrends,getAlerts]
+          break
+        case 'tco':
+        case 'overall':
+          var fnArr = [getFlagMatrix]
+          break;
+        case 'weibull':
+          var fnArr= [getPrediction]
+          break;
+      }
 
       console.log(JSON.stringify(fnArr), classType)
       data = []

@@ -35,6 +35,33 @@
             yesnoMsg = yesnoMsg.replace('#{bucketDesc}', '<span class="yesno-text">'+(data[0]?data[0].TCO_BUCKET_DESC:'')+'</span>')
             yesnoMsg = yesnoMsg.replace('#{flagDesc}', '<span class="yesno-text">'+(data[0]?data[0].TCO_FLAG_DESC:'')+'</span>')
         break
+      case 'weibull':
+        var yesnoMsg= config.yesnoWEIBULLMsg;
+            yesnoMsg = yesnoMsg.replace(/\n/g, '<br/>')
+            yesnoMsg = yesnoMsg.replace('#{classType}', '<span class="yesno-text">'+classType.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{partNumber}', '<span class="yesno-text">'+partNumber.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{vintageNumber}', '<span class="yesno-text">'+(data[0]?data[0].BUILT_YEAR_MONTH:'')+'</span>')
+            var prediction = ((data[0]?data[0].Prediction:0) * 100).toFixed(2) + '%'
+            yesnoMsg = yesnoMsg.replace('#{prediction}', '<span class="yesno-text">'+prediction+'</span>')
+        break;
+      case 'overall':
+        var yesnoMsg= config.yesnoOVERALLMsg;
+            yesnoMsg = yesnoMsg.replace(/\n/g, '<br/>')
+            yesnoMsg = yesnoMsg.replace('#{classType}', '<span class="yesno-text">'+classType.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{partNumber}', '<span class="yesno-text">'+partNumber.toUpperCase()+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{vintageNumber}', '<span class="yesno-text">'+(data[0]?data[0].BUILT_YEAR_MONTH:'')+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{summaryRemarks}', '<span class="yesno-text">'+(data[0]?data[0].SUMMARY_REMARKS:'')+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{arrDesc}', '<span class="yesno-text">'+(data[0]?data[0].ARR_DESC:'')+'</span>')
+            yesnoMsg = yesnoMsg.replace('#{ppmDesc}', '<span class="yesno-text">'+(data[0]?data[0].PPM_DESC:'')+'</span>')
+            
+            var tcoBucketDesc = data[0]?data[0].TCO_BUCKET_DESC:''
+            var tcoFlagDesc = data[0]?data[0].TCO_FLAG_DESC:''
+            yesnoMsg = yesnoMsg.replace('#{tcoBucketDescAndFlag}', '<span class="yesno-text">'+(tcoBucketDesc + ' ' + tcoFlagDesc)+'</span>')
+
+            var fiveYrBucketDesc = data[0]?data[0]['5YR-FR_BUCKET_DESC']:''
+            var prediction = ((data[0]?data[0].Prediction:0) * 100).toFixed(2) + '%'
+            yesnoMsg = yesnoMsg.replace('#{fiveYrBucketDesc}', '<span class="yesno-text">'+(fiveYrBucketDesc+' ('+prediction+')')+'</span>')
+        break
     }
     return yesnoMsg
   }
@@ -72,6 +99,21 @@
         pn = ((pn.length != PNLEN) ? null : pn);
     }
     return pn;
+  }
+
+  module.exports.parseVintage = function(text){
+    var vintage = null;
+    var YEAR = 4;
+
+    if (text) {
+        var arr = text.toUpperCase().split(/BUILD|BUILT|BUILT.?ON|BUILD.?ON{0,1}/gi);
+        console.log('arr',arr)
+        vintage = arr[arr.length - 1].trim().split(/\s/g)[0]
+        //pn = (arr[arr.length - 1]).replace(/[^a-zA-Z0-9]/g, "");
+        console.log('vintage',pn)
+        vintage = ((vintage.length != PNLEN) ? null : vintage);
+    }
+    return vintage;
   }
 
 }).call(this)

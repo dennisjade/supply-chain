@@ -8,7 +8,8 @@
     searchResult = function(req, res){
       var classType = req.query.classType?req.query.classType.toLowerCase():''
       var partNumber = req.query.partNumber
-      var json = {classType:classType, partNumber:partNumber}
+      var vintage = req.query.vintage
+      var json = {classType:classType, partNumber:partNumber, vintage: vintage}
 
       switch(classType){
         case 'ppm' :

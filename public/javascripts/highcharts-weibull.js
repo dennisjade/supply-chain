@@ -1,13 +1,14 @@
 
 (function(){
 
-  if ($("#tco-page").length > 0){
+  if ($("#weibull-page").length > 0){
     var classType = $("input[name=classType]").val();
     var partNumber = $("input[name=partNumber]").val();
+    var vintage = $("input[name=vintage]").val();
 
     var options = {
           chart: {
-              renderTo: 'container-tco'
+              renderTo: 'container-weibull'
           },
           title: {
               text: 'Chart'
@@ -16,14 +17,12 @@
               text: '',
           },
           xAxis: [{
-              title:{text:'Calendar Year Month'},
               categories: [],
-              labels: {rotation: -45}
+              labels: {rotation: -45},
+              title: {text: 'POH'}
           }],
-          yAxis: [{ // Primary yAxis
-              title: {
-                  text: '5 Year ATCQ'
-              },
+          yAxis: [{
+              title: {text: 'Prediction, Failure Rate'},
               plotLines: [{
                   value: 0,
                   width: 1,
@@ -34,16 +33,22 @@
               shared: true
           },
           series: [{
-              name: '5 Year ATCQ',
+              name: 'Prediction',
               data: [],
-          }]
+          },
+          {
+              name: 'Failure Rate',
+              data: [],
+          }
+          ]
       };
 
-    $.getJSON('/api/tcotable?classType='+classType+'&partNumber='+partNumber+'&format=highcharts', function(jsonData) {
+    $.getJSON('/api/weibulltable?classType='+classType+'&partNumber='+partNumber+'&vintage='+vintage+'&format=highcharts', function(jsonData) {
         options.title.text = jsonData.data.classType + ' Chart';
-        options.subtitle.text = jsonData.data.partNumber + ' 5 Year ATCQ Performance';
+        options.subtitle.text = 'IBMPN:'+jsonData.data.partNumber+' Vintage:'+jsonData.data.vintage+' Prediction vs Actual';
         options.xAxis[0].categories = jsonData.data.categories
-        options.series[0].data = jsonData.data['5YEAR_ATCQ'];
+        options.series[0].data = jsonData.data['prediction'];
+        options.series[1].data = jsonData.data['failureRate'];
         var chart = new Highcharts.Chart(options);
     });
   }

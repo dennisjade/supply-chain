@@ -15,7 +15,7 @@
     successCbTcoTable = function(response){
       var table = '<table class="tg">'+
                     '<tr>'+
-                      '<th class="tg-031e">CAPICITY</th>'+
+                      '<th class="tg-031e">CAPaCITY</th>'+
                       '<th class="tg-031e">SUPPLIER</th>'+
                       '<th class="tg-031e">DRIVE FAMILY</th>'+
                       '<th class="tg-031e">IBMPN</th>'+
