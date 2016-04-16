@@ -43,17 +43,17 @@
 
     l.start();
 
-    $.post("/api/analyzeSearch", 
-        { data : data },
-      function(response){
+    $.post("/api/analyzeSearch", { data : data }, function(response){
+        l.stop();
         if (response.status==200)
           loadSearch(response.data)
         else
           $("#response-message").html(response.msg)
+        return false;
       }, "json")
-    .always(function() { l.stop(); });
+    //.always(function() { l.stop(); });
     
-    return false;
+    
   })
 
   loadSearch= function(data){
@@ -78,7 +78,7 @@
 
     successCallback = function(response){
       var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>'
-      $(".yesno-box").html(html);
+      $(".yesno-ppm").html(html);
       textToSpeech(response.data);
     }
     

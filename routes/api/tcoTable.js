@@ -2,17 +2,21 @@
   
   module.exports =  function(app){
 
-    var ppmModel = require('../../models/ppm')
+    var tcoModel = require('../../models/tco')
     var config = require('../../config')
     var _ = require('underscore')
 
 
-    getPPMTable = function(req, res){
+    getTCOTable = function(req, res){
       var ret = {status:200, msg:'Success', data:null}
       var partNumber = req.query.partNumber
       var classType = req.query.classType
 
-      ppmModel.getPPMTableValues(partNumber, function(err, docs){
+      var options = {ascDesc: 'DESC'}
+      if (req.query.format=='highcharts')
+        options.ascDesc = 'ASC'
+
+      tcoModel.getTCOTableValues(partNumber, options, function(err, docs){
         if (err){
           ret.status = 200
           ret.msg = 'Failed'
@@ -20,16 +24,16 @@
         }else{
           if (req.query.format=='highcharts'){
             var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            var categories = _.map(docs, function(item, key){return monthNames[parseInt(item.PERIOD_MONTH)-1]+' \''+item.PERIOD_YEAR.toString().substr(2,2)})
-            var cummShippedQty = _.pluck(docs, 'cum_SHIPPED_QTY')
-            var ppm = _.pluck(docs, 'PPM')
-            var avgPPM = _.pluck(docs, 'avg_PPM')
+            var categories = _.map(docs, function(item, key){
+              var dt = item.CALENDAR_YEAR_MONTH.split('_')
+              return monthNames[parseInt(dt[1])-1]+' \''+dt[0].toString().substr(2,2)
+            })
+            var FIVEYEAR_ATCQ = _.pluck(docs, '5YEAR_ATCQ')
+
             var data = {
                   classType: classType.toUpperCase(), 
                   partNumber:partNumber, 
-                  ppm : _.map(ppm, Number) ,
-                  avgPPM : _.map(avgPPM,Number) ,
-                  cummShippedQty : _.map(cummShippedQty,Number) ,
+                  '5YEAR_ATCQ' : FIVEYEAR_ATCQ ,
                   categories: categories
                 }
             
@@ -43,6 +47,6 @@
       })
     }
 
-    app.get('/api/ppmtable', getPPMTable)
+    app.get('/api/tcotable', getTCOTable)
   }
 }).call(this)

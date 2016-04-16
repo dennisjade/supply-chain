@@ -8,7 +8,7 @@
       if (!global.dbConn.connected)
         global.dbConn = ibmdb.openSync(config.dbConnString);
 
-      var query= "select ALERTS_SUMMARY from ARR_ALERTS where IBMPN='"+partNumber.toUpperCase()+"'"
+      var query= "select * from ARR_ALERTS_SUMMARY where IBMPN='"+partNumber.toUpperCase()+"'"
       
       global.dbConn.query(query, function (err, rows, docs) {
         if (err) {

@@ -78,6 +78,7 @@ a {
   background-color: #2c3d4f;
   color: #f39c12;
   min-height: 100px;
+  font-size: 14px;
 }
 
 .background-and-text-color{
@@ -136,3 +137,10 @@ a {
 .tg .tg-l2oz{font-weight:bold;text-align:right;vertical-align:top}
 .tg td{min-width: 45px;}
 .ppmTable .tg{background-color: #2c3d4f; color:#f39c12;}
+
+/*.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+*/

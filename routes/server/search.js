@@ -12,13 +12,20 @@
 
       switch(classType){
         case 'ppm' :
+          var jadeFile = 'search-ppm.jade';
+          break;
         case 'tco':
+          var jadeFile= 'search-tco.jade'
+          break;
         case 'weibull':
-          var jadeFile = 'search-ppm.jade'
+          var jadeFile = 'search-weibull.jade'
           break;
         case 'arr' :
           var jadeFile = 'search-arr.jade'
           break;
+        case 'overall':
+          var jadeFile = 'search-overall.jade'
+          break
         default:
           var jadeFile = 'home.jade'
       }

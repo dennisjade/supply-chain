@@ -5,7 +5,7 @@ block content
     include header
     include navigation
 
-    #ppm-toc-weibull.container.container-table
+    #tco-page.container.container-table
       input(type="hidden", name="partNumber", value="#{partNumber}")
       input(type="hidden", name="classType", value="#{classType}")
       .row.vertical-center-row
@@ -14,13 +14,13 @@ block content
               .col-md-8
                 .row
                   .col-md-12.text-center
-                    #container(style="width:100%; height:400px;")
+                    #container-tco(style="width:100%; height:400px;")
                   .col-md-12
-                    div.ppmTable(style="padding-top:10px;padding-bottom:67px;")
+                    div.tcoTable(style="padding-top:10px;padding-bottom:67px;")
                       div.spinner-center
                         span.glyphicon.glyphicon-refresh.glyphicon-spin
               .col-md-4(style="padding-top:22px")
-                div.yesno-box.yesno-ppm
+                div.yesno-box.yesno-tco
                   div.spinner-center
                     span.glyphicon.glyphicon-refresh.glyphicon-spin
     include footer

@@ -9,13 +9,13 @@
   module.exports.anaylyzeText = function (text, callback){
     natural_language_classifier.classify({
       text: text,
-      classifier_id: 'cd6374x52-nlc-938' },
+      classifier_id: 'f1704ex55-nlc-3949' },
       function(err, response) {
         if (err){
           console.log('Error on analyzing text ', JSON.stringify(err))
           callback(err, null)
         }else{
-          console.log('bbbbbbbb', err, response)
+          console.log('anaylyzer result: ', err, response)
           callback(null, response)
         }
     });

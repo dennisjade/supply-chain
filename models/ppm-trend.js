@@ -23,6 +23,7 @@
               console.log('Error getting PPM_TREND: ', err);
               callback(err,null)
             } else {
+              console.log(err, docs)
               callback(null, rows[0])
             }
         });

@@ -4,13 +4,15 @@
 
     var ppmTrendModel = require('../../models/ppm-trend')
     var arrAlertsModel = require('../../models/arr-alerts')
+    var flagMatrixModel = require('../../models/flag-matrix')
     var config = require('../../config')
     var async = require('async')
+    var commonHelpers= require('../../helpers/common')
 
     getYesNoBox = function(req, res){
       var ret = {status:200, msg:'Success', data:null}
       var partNumber = req.query.partNumber
-      var classType = req.query.classType
+      var classType = req.query.classType.toLowerCase()
 
       getTrends = function(callback){
         ppmTrendModel.getTrends(partNumber, function(err, docs){
@@ -35,8 +37,25 @@
         })
       }
 
+      getFlagMatrix = function(callback){
+        flagMatrixModel.getFlagMatrix(partNumber, function(err, docs){
+          if (err){
+            console.log('Error getting FLAG METRIX ', err)
+            callback(err, null)
+          }else{
+            callback(null, docs)
+          }
+        })
+      }
+
+      if (['ppm', 'arr'].indexOf(classType)>=0)
+        var fnArr = [getTrends,getAlerts]
+      else if (['tco'].indexOf(classType)>=0)
+        var fnArr = [getFlagMatrix]
+
+      console.log(JSON.stringify(fnArr), classType)
       data = []
-      async.eachSeries([getTrends,getAlerts], function(fn, callback){
+      async.eachSeries(fnArr, function(fn, callback){
         fn(function(err, docs){
           if (err)
             callback(err)
@@ -55,14 +74,7 @@
             ret.data = "No information found on the DB for <span class='yesno-text'>"+classType.toUpperCase()+':'+partNumber.toUpperCase()+'</span>'
             return res.json(ret)
           }else{
-            var yesnoMsg= config.yesnoMsg
-            yesnoMsg = yesnoMsg.replace(/\n/g, '<br/>')
-            yesnoMsg = yesnoMsg.replace('#{classType}', '<span class="yesno-text">'+classType.toUpperCase()+'</span>')
-            yesnoMsg = yesnoMsg.replace('#{partNumber}', '<span class="yesno-text">'+partNumber.toUpperCase()+'</span>')
-            yesnoMsg = yesnoMsg.replace('#{trend1}', '<span class="yesno-text">'+(data[0]?data[0].PPM_FLAG_TEXT:'')+'</span>')
-            yesnoMsg = yesnoMsg.replace('#{trend2}', '<span class="yesno-text">'+(data[0]?data[0].TREND_TEXT:'')+'</span>')
-            yesnoMsg = yesnoMsg.replace('#{alertsCount}', '<span class="yesno-text">'+(data[1]?data[1].ALERTS_SUMMARY:'')+'</span>')
-            ret.data = yesnoMsg
+            ret.data= commonHelpers.getYesNoMsg(classType, partNumber, data)
             return res.json(ret)
           }
         }
