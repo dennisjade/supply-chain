@@ -14,6 +14,7 @@
       var ret = {status:200, msg:'Success', data:null}
       var partNumber = req.query.partNumber
       var classType = req.query.classType.toLowerCase()
+      var vintage  =req.query.vintage
 
       getTrends = function(callback){
         ppmTrendModel.getTrends(partNumber, function(err, docs){
@@ -50,7 +51,7 @@
       }
 
       getPrediction = function(callback){
-        weibullModel.getWeibull(partNumber, function(err, docs){
+        weibullModel.getWeibull(partNumber, vintage,  function(err, docs){
           if (err){
             console.log('Error getting FLAG METRIX ', err)
             callback(err, null)

@@ -1,12 +1,14 @@
 (function() {
 
   var config = require('../config')
+  var _ = require('underscore')
 
   module.exports.getOrdinal = function(n){
    var s=["th","st","nd","rd"],
        v=n%100;
    return n+(s[(v-20)%10]||s[v]||s[0]);
   }
+
   module.exports.getYesNoMsg = function(classType, partNumber, data){
     switch (classType){
       case 'ppm':
@@ -103,17 +105,39 @@
 
   module.exports.parseVintage = function(text){
     var vintage = null;
-    var YEAR = 4;
+    var YRLEN = 4;
 
     if (text) {
         var arr = text.toUpperCase().split(/BUILD|BUILT|BUILT.?ON|BUILD.?ON{0,1}/gi);
-        console.log('arr',arr)
-        vintage = arr[arr.length - 1].trim().split(/\s/g)[0]
+        vintage = arr[arr.length - 1].trim().split(/\s|\-/g)
         //pn = (arr[arr.length - 1]).replace(/[^a-zA-Z0-9]/g, "");
-        console.log('vintage',pn)
-        vintage = ((vintage.length != PNLEN) ? null : vintage);
+        console.log(arr,vintage)
+        var monthTemp = vintage[0].toLowerCase()
+        var monthNamesShort = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        var monthNamesLong = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        month = monthTemp.length>3? monthNamesLong.indexOf(monthTemp) : monthNamesShort.indexOf(monthTemp) 
+        if (month>=0){
+          month += 1
+          month = module.exports.padZero(month,2)
+        }
+        console.log('month', month)
+
+        var year = null
+        if (vintage.length>1){
+          console.log('aaaa', vintage[1].length, isNaN(vintage[1]))
+          var year = vintage[1].length==YRLEN && !isNaN(vintage[1])?vintage[1]:null  
+        }
+        vintage = year==null||month==-1?null:year+'_'+month
+        console.log('vintage',vintage)
+        //vintage = ((vintage.length != YRLEN) ? null : vintage);
     }
     return vintage;
+  }
+
+  module.exports.padZero = function (n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
 }).call(this)

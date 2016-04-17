@@ -59,6 +59,7 @@
   loadSearch= function(data){
     $("input[name=classType]").val(data.classType);
     $("input[name=partNumber]").val(data.partNumber);
+    $("input[name=vintage]").val(data.vintage);
     $("#submitSearchResult").submit()
   }
 
