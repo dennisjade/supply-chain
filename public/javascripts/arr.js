@@ -41,11 +41,13 @@
       var headerYear = ''
       var headerMonth = ''
       var totalHeaderMonths = 0
+      var tempYearMonth = []
       _.each(arr, function(item){
         headerYear += '<th class="tg-baqh" colspan="'+ item[Object.keys(item)[0]].length +'">'+Object.keys(item)[0]+'</th>'
         totalHeaderMonths += item[ Object.keys(item)[0] ].length
         _.each(item[ Object.keys(item)[0] ], function(subitem) {
           headerMonth += '<td class="tg-yw4l">'+subitem+'</td>'
+          tempYearMonth.push(Object.keys(item)[0]+'_'+subitem)
         })
       })
 
@@ -65,8 +67,7 @@
                       '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].CAPACITY + '</td>' +
                       '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].BUILD_YEAR + '</td>' +
                       '<td class="tg-yw4l">'+response.data[i].BUILD_MTH+'</td>' +
-                      '<td class="tg-yw4l">1A</td>' +
-                      '<td class="tg-yw4l">1B</td>' +
+                      populateReturnValues(response.data, i, tempYearMonth) +
                       '<td class="tg-yw4l">'+response.data[i].VINTAGE_SHIPPED_QTY+'</td>' +
                       '<td class="tg-yw4l">'+response.data[i].VINTAGE_RETURNED_QTY+'</td>' +
                     '</tr>'
@@ -75,19 +76,13 @@
         var rowspan = 1
         var rowBuild= ''
         while (response.data[counter+1] && currYearProcess==response.data[counter+1].BUILD_YEAR) {
-          var arrValue = ''
-          for (var arrCounter=0;arrCounter<totalHeaderMonths;arrCounter++){
-            arrValue += '<td class="tg-yw4l">'+response.data[counter].ARR+'</td>'
-          }
-
           counter ++;
           rowBuild += '<tr>'+
                         '<td class="tg-yw4l">'+response.data[counter].BUILD_MTH+'</td>' +
-                        arrValue +
+                        populateReturnValues(response.data, counter, tempYearMonth) +
                         '<td class="tg-yw4l">'+response.data[counter].VINTAGE_SHIPPED_QTY+'</td>' +
                         '<td class="tg-yw4l">'+response.data[counter].VINTAGE_RETURNED_QTY+'</td>' +
                       '</tr>'
-          
           rowspan ++;
         }
         i = counter
@@ -105,8 +100,8 @@
                       '<th class="tg-yw4l" rowspan="2">Build Year</th>'+
                       '<th class="tg-yw4l" rowspan="2">Build Month</th>'+
                       headerYear +
-                      '<th class="tg-yw4l" rowspan="2">VINTAGE_SHIPPED_QTY</th>'+
-                      '<th class="tg-yw4l" rowspan="2">VINTAGE_RETURNED_QTY</th>'+
+                      '<th class="tg-yw4l" rowspan="2">VINTAGE SHIPPED QTY</th>'+
+                      '<th class="tg-yw4l" rowspan="2">VINTAGE RETURNED QTY</th>'+
                     '</tr>'+
                     '<tr>'+
                       headerMonth + 
@@ -114,6 +109,32 @@
       $(".arrTable").html(table + rows)
     }
 
+    populateReturnValues = function(data, rowPosition, tempYearMonth){
+      //create return values for columns
+      var arrValues = ''
+      for (var arrCounter=0;arrCounter<tempYearMonth.length;arrCounter++){
+        var yr_mth = data[rowPosition].RETURN_YEAR+'_'+data[rowPosition].RETURN_MTH
+        if (yr_mth == tempYearMonth[arrCounter]){
+          arrValues += '<td class="tg-yw4l '+getArrColor(parseFloat(data[rowPosition].ARR))+'">'+data[rowPosition].ARR.toFixed(3)+'</td>'
+        }else
+          arrValues += '<td class="tg-yw4l background-color-green">0.000</td>'
+      }
+      return arrValues
+    }
+
+    getArrColor = function(arr){
+      var color = 'background-color-green'
+      if (arr < 2)
+        color = 'background-color-green'
+      else if(arr < 3)
+        color = 'background-color-yellow'
+      else if(arr < 4)
+        color = 'background-color-orange'
+      else if(arr >= 4)
+        color = 'background-color-red'
+
+      return color
+    }
     errorCallbackArrTable = function(response){}
 
     $.get('/api/yesno-box?'+params, succesCbArrYesNo).error(errorCallbackArrYesNo)
