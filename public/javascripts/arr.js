@@ -13,27 +13,8 @@
     errorCallbackArrYesNo = function(response){}
 
     successCbArrTable = function(response){
-      var table = '<table class="tg">'+
-                    '<tr>'+
-                      '<th class="tg-yw4l" rowspan="2">GEO Supplier</th>'+
-                      '<th class="tg-yw4l" rowspan="2">Family</th>'+
-                      '<th class="tg-yw4l" rowspan="2">IBMPN</th>'+
-                      '<th class="tg-yw4l" rowspan="2">Capacity</th>'+
-                      '<th class="tg-yw4l" rowspan="2">Build Year</th>'+
-                      '<th class="tg-yw4l" rowspan="2">Build Month</th>'+
-                      '<th class="tg-baqh" colspan="2">2015</th>'+
-                      '<th class="tg-yw4l" rowspan="2">VINTAGE_SHIPPED_QTY</th>'+
-                      '<th class="tg-yw4l" rowspan="2">VINTAGE_RETURNED_QTY</th>'+
-                    '</tr>'+
-                    '<tr>'+
-                      '<td class="tg-yw4l">5</td>'+
-                      '<td class="tg-yw4l">1</td>'+
-                    '</tr>'
 
-      var rows = ''
-      var rowTable = ''
-      var currYearProcess = null
-
+      //plot the return year and month header
       var returnYears = _.pluck(response.data,'RETURN_YEAR')
       var returnYears = _.uniq(returnYears)
       var arr  = []
@@ -55,17 +36,26 @@
 
         if (key!=null && arr[key][response.data[i].RETURN_YEAR].indexOf(response.data[i].RETURN_MTH)==-1)
           arr[key][response.data[i].RETURN_YEAR].push(response.data[i].RETURN_MTH)
-        
       }
 
       var headerYear = ''
-      _.each(arr, function(item, key){
-        headerYear +='<th class="tg-baqh" colspan="'+ item[Object.keys(item)[0]].length +'">'+Object.keys(item)[0]+'</th>'
+      var headerMonth = ''
+      var totalHeaderMonths = 0
+      _.each(arr, function(item){
+        headerYear += '<th class="tg-baqh" colspan="'+ item[Object.keys(item)[0]].length +'">'+Object.keys(item)[0]+'</th>'
+        totalHeaderMonths += item[ Object.keys(item)[0] ].length
+        _.each(item[ Object.keys(item)[0] ], function(subitem) {
+          headerMonth += '<td class="tg-yw4l">'+subitem+'</td>'
+        })
       })
 
       console.log('aaaaaa', arr)
       //[{2016:[02,03]},{2015:[01]}]
 
+      //start looping the records
+      var rows = ''
+      var rowTable = ''
+      var currYearProcess = null
       for (var i=0; i<response.data.length;i++){
         currYearProcess = response.data[i].BUILD_YEAR
         rowTable = '<tr>'+
@@ -85,22 +75,42 @@
         var rowspan = 1
         var rowBuild= ''
         while (response.data[counter+1] && currYearProcess==response.data[counter+1].BUILD_YEAR) {
+          var arrValue = ''
+          for (var arrCounter=0;arrCounter<totalHeaderMonths;arrCounter++){
+            arrValue += '<td class="tg-yw4l">'+response.data[counter].ARR+'</td>'
+          }
+
           counter ++;
           rowBuild += '<tr>'+
                         '<td class="tg-yw4l">'+response.data[counter].BUILD_MTH+'</td>' +
-
-                        '<td class="tg-yw4l">'+response.data[counter].ARR+'</td>' +
-                        '<td class="tg-yw4l">2B</td>' +
+                        arrValue +
                         '<td class="tg-yw4l">'+response.data[counter].VINTAGE_SHIPPED_QTY+'</td>' +
                         '<td class="tg-yw4l">'+response.data[counter].VINTAGE_RETURNED_QTY+'</td>' +
                       '</tr>'
           
           rowspan ++;
         }
+        i = counter
         rowTable = rowTable.replace(/#{ROWSPAN}/g, rowspan) + rowBuild
         rows += rowTable
       }
-      i = counter
+      //end looping the records
+
+      var table = '<table class="tg">'+
+                    '<tr>'+
+                      '<th class="tg-yw4l" rowspan="2">GEO Supplier</th>'+
+                      '<th class="tg-yw4l" rowspan="2">Family</th>'+
+                      '<th class="tg-yw4l" rowspan="2">IBMPN</th>'+
+                      '<th class="tg-yw4l" rowspan="2">Capacity</th>'+
+                      '<th class="tg-yw4l" rowspan="2">Build Year</th>'+
+                      '<th class="tg-yw4l" rowspan="2">Build Month</th>'+
+                      headerYear +
+                      '<th class="tg-yw4l" rowspan="2">VINTAGE_SHIPPED_QTY</th>'+
+                      '<th class="tg-yw4l" rowspan="2">VINTAGE_RETURNED_QTY</th>'+
+                    '</tr>'+
+                    '<tr>'+
+                      headerMonth + 
+                    '</tr>'
       $(".arrTable").html(table + rows)
     }
 
