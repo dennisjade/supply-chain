@@ -14,7 +14,8 @@
 
     successCbArrTable = function(response){
 
-      //plot the return year and month header
+      //structure the data for year and month header plotting
+      //[{2016:[5,3,1],{2015:[12,5]}]
       var returnYears = _.pluck(response.data,'RETURN_YEAR')
       var returnYears = _.uniq(returnYears)
       var arr  = []
@@ -40,19 +41,67 @@
 
       var headerYear = ''
       var headerMonth = ''
-      var totalHeaderMonths = 0
       var tempYearMonth = []
+      var returnDefault = []
       _.each(arr, function(item){
         headerYear += '<th class="tg-baqh" colspan="'+ item[Object.keys(item)[0]].length +'">'+Object.keys(item)[0]+'</th>'
-        totalHeaderMonths += item[ Object.keys(item)[0] ].length
         _.each(item[ Object.keys(item)[0] ], function(subitem) {
           headerMonth += '<td class="tg-yw4l">'+subitem+'</td>'
           tempYearMonth.push(Object.keys(item)[0]+'_'+subitem)
+          returnDefault.push('<td class="tg-yw4l background-color-green">0.000</td>')
         })
       })
 
-      console.log('aaaaaa', arr)
       //[{2016:[02,03]},{2015:[01]}]
+
+      // var sorted = _.groupBy(response.data, 'BUILT_YEAR_MONTH')
+      // var rows = ''
+      // var currYearProcess = ''
+      // var currIBMPN = ''
+      // _.each(sorted, function(item, key){
+      //   //currYearProcess = item.split('_').trim()[0]
+      //   if (currYearProcess!=subitem.BUILD_YEAR || currIBMPN!=subitem.IBMPN){
+      //     currYearProcess= subitem.BUILD_YEAR
+      //     currIBMPN = subitem.IBMPN
+      //     var row = '<tr>'+
+      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].GEO + ' ' + response.data[i].SUPPLIER + '</td>' +
+      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].DRIVENAME + '</td>' +
+      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].IBMPN + '</td>' +
+      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].CAPACITY + '</td>' +
+      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].BUILD_YEAR + '</td>' +
+      //               '<td class="tg-yw4l">'+ item[0].BUILD_MTH +'</td>' +
+      //               '#{RETURNED_VALUES}' +
+      //               '<td class="tg-yw4l">'+item[0].VINTAGE_SHIPPED_QTY+'</td>' +
+      //               '<td class="tg-yw4l">'+item[0].VINTAGE_RETURNED_QTY+'</td>' +
+      //             '</tr>'
+      //   }else{
+      //     var row += '<tr>'+
+      //                 '<td class="tg-yw4l">'+item[key].BUILD_MTH+'</td>' +
+      //                 '#{RETURNED_VALUES}' +
+      //                 '<td class="tg-yw4l">'+item.VINTAGE_SHIPPED_QTY+'</td>' +
+      //                 '<td class="tg-yw4l">'+item.VINTAGE_RETURNED_QTY+'</td>' +
+      //                 '</tr>'
+      //   }
+
+      //   //loop into the return values
+      //   var arrValues = ''
+      //   var tempReturnDefault = returnDefault
+      //   _.each(item, function(subitem, key){
+      //     var yr_mth = subitem.RETURN_YEAR+'_'+subitem.RETURN_MTH
+      //     var idx = tempYearMonth.indexOf(yr_mth)
+      //     if ( idx >= 0) {
+      //       tempReturnDefault[idx] = tempReturnDefault[idx].replace('0.000', subitem.ARR.toFixed(3))
+      //       tempReturnDefault[idx] = tempReturnDefault[idx].replace('background-color-green', getArrColor(parseFloat(subitem.ARR)))
+      //     }
+      //   })
+
+      //   arrValues = tempReturnDefault.join('')
+
+      //   rowTable = row.replace(/#{RETURNED_VALUES}/g, arrValues)
+      //   rowTable = rowTable.replace(/#{ROWSPAN}/g, item.length) + rowBuild
+      //   rows += rowTablerows += rowTable
+      // })
+
 
       //start looping the records
       var rows = ''

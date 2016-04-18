@@ -160,3 +160,20 @@ a {
 .tg .tg-baqh{text-align:center;vertical-align:top}
 .tg .tg-yw4l{vertical-align:top}
 */
+
+
+div#container-map.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: #FFFFFF;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+path {
+    fill: grey;
+}
