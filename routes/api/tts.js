@@ -7,9 +7,10 @@
 
     synthesize = function(req, res){
       // create an audio stream
+      var text = req.query.text.replace('IBMPN', 'IBM Part Number')
       var audioStream = tts.synthesize({
-        text: req.query.text,
-        voice: 'en-GB_KateVoice',
+        text: text,
+        voice: 'en-US_MichaelVoice',
         accept: req.headers.accept // let the client's browser choose what format the audio is sent in
       });
 

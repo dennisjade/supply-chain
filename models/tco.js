@@ -29,5 +29,28 @@
     }
   }
 
+
+  module.exports.getTCOFlag = function(partNumber, callback){
+    try{
+      if (!global.dbConn.connected)
+        global.dbConn = ibmdb.openSync(config.dbConnString);
+
+      var query= "select TCO_FLAG from TCO where IBMPN='"+partNumber.toUpperCase()+"'"
+      console.log('tco table', query)
+
+      global.dbConn.query(query, function (err, rows, docs) {
+        if (err) {
+          console.log('Error getting TCO-flag: ', err);
+          callback(err,null)
+        } else {
+          callback(null, rows[0])
+        }
+      });
+
+    } catch(e){
+      console.log(e.message);
+    }
+  }
+
 }).call(this)
 

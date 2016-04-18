@@ -6,7 +6,7 @@
     var params ='partNumber='+partNumber+'&classType='+classType
 
     succesCbArrYesNo = function(response){
-      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>'
+      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success yes-arr">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger no-arr">No</button></div>'
       $(".yesno-arr").html(html);
       textToSpeech(response.data);
     }
@@ -188,5 +188,18 @@
 
     $.get('/api/yesno-box?'+params, succesCbArrYesNo).error(errorCallbackArrYesNo)
     $.get('/api/arrtable?'+params, successCbArrTable).error(errorCallbackArrTable)
+
+
+    $('.yesno-arr').on('click', '.yes-arr', function(response){
+      $(".yesno-arr").html('Done!')
+    })
+
+    successCallbackNoARR = function(response){
+      $(".yesno-arr").html(response.data)
+    }
+
+    $('.yesno-arr').on('click', '.no-arr', function(){
+      $.get('/api/no-arr?'+params, successCallbackNoARR)
+    })
   }
 }).call(this)

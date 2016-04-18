@@ -7,7 +7,7 @@
     var params ='partNumber='+partNumber+'&classType='+classType+'&vintage='+vintage
 
     succesCbTcoYesNo = function(response){
-      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>'
+      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success yes-weibull">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger no-weibull">No</button></div>'
       $(".yesno-weibull").html(html);
       textToSpeech(response.data);
     }
@@ -59,5 +59,18 @@
 
     $.get('/api/yesno-box?'+params, succesCbTcoYesNo).error(errorCallbackTcoYesNo)
     $.get('/api/weibulltable?'+params, successCbWeibullTable).error(errorCallbackWeibullTable)
+
+    $('.yesno-weibull').on('click', '.yes-weibull', function(response){
+      $(".yesno-weibull").html('Done!')
+    })
+
+    successCallbackNoWeibull = function(response){
+      $(".yesno-weibull").html(response.data)
+    }
+
+    $('.yesno-weibull').on('click', '.no-weibull', function(){
+      $.get('/api/no-weibull?'+params, successCallbackNoWeibull)
+    })
+
   }
 }).call(this)

@@ -4,7 +4,7 @@
   var moment= require("moment")
 
 
-  module.exports.getWeibull = function(partNumber, vintage, callback){
+  module.exports.getWeibullTableValues = function(partNumber, vintage, callback){
     try{
       if (!global.dbConn.connected)
         global.dbConn = ibmdb.openSync(config.dbConnString);

@@ -6,7 +6,7 @@
     var params ='partNumber='+partNumber+'&classType='+classType
 
     succesCbTcoYesNo = function(response){
-      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger">No</button></div>'
+      var html = response.data + '<div class="yesno-button"><button class="btn btn-small btn-success yes-tco">Yes</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-small btn-danger no-tco">No</button></div>'
       $(".yesno-tco").html(html);
       textToSpeech(response.data);
     }
@@ -46,5 +46,18 @@
 
     $.get('/api/yesno-box?'+params, succesCbTcoYesNo).error(errorCallbackTcoYesNo)
     $.get('/api/tcotable?'+params, successCbTcoTable).error(errorCallbackTcoTable)
+
+    $('.yesno-tco').on('click', '.yes-tco', function(response){
+      $(".yesno-tco").html('Done!')
+    })
+
+    successCallbackNoTCO = function(response){
+      $(".yesno-tco").html(response.data)
+    }
+
+    $('.yesno-tco').on('click', '.no-tco', function(){
+      $.get('/api/no-tco?'+params, successCallbackNoTCO)
+    })
+
   }
 }).call(this)

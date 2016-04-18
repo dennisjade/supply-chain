@@ -14,7 +14,7 @@
         var currDate = new Date()
         var month = currDate.getMonth()-1 //minus 2 because we dont have data for the current months
         var year = currDate.getFullYear()
-        var query = "select PPM_FLAG_TEXT,TREND_TEXT from PPM_TREND where" +
+        var query = "select PPM_FLAG, PPM_FLAG_TEXT, TREND_TEXT from PPM_TREND where" +
                     " IBMPN='"+partNumber.toUpperCase()+"' and CAST(PERIOD_MONTH as INTEGER)="+month+" and CAST(PERIOD_YEAR as INTEGER)="+year+
                     " fetch first rows only"
         console.log('gettrend', query)

@@ -2,6 +2,7 @@
 
   var config = require('../config')
   var _ = require('underscore')
+  var noReplyActionModel = require('../models/no-reply-action')
 
   module.exports.getOrdinal = function(n){
    var s=["th","st","nd","rd"],
@@ -140,4 +141,30 @@
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
+  module.exports.evaluteNoReplyAction = function(flag, callback) {
+    noReplyActionModel.getNoReplyActionTableValues(flag, function(err, docs){
+      if (err){
+        console.log('Error getting no-reply-action', err)
+        callback(err, 'Error getting info from NO_REPLY_ACTION table')
+      }else{
+        callback(null, docs)
+      }
+    })
+  }
+
+  module.exports.parseCookies  = function (rc) {
+    var list = {}
+
+    rc && rc.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+
+    return list;
+  }
+
+  module.exports.capitalizeFirstLetter = function (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
 }).call(this)
