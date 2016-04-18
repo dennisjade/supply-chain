@@ -63,6 +63,43 @@
     $("#submitSearchResult").submit()
   }
 
+  $('#sbmt').on("click", function(e) {
+        var users = [
+          "gaguigc",
+          "chanab",
+          "angak",
+          "tohpjb",
+          "neohk",
+          "js9m",
+          "jfritz",
+          "lowlgj",
+          "kdore",
+          "luliu",
+          "corralmg",
+          "matt",
+          "bobedge",
+          "elhoushy",
+          "vivekp",
+          "glogow",
+          "sgan"
+        ];
+        var pass = "1234";
+
+        console.log("click");
+        var psw = document.querySelector('#psw').value;
+        var bvalid = false;
+        if ((psw) && (psw == pass)) {
+            var user = document.querySelector('#usrname').value;
+            if ($.inArray(user.toLowerCase(), users) > -1) {
+                bvalid = true;
+                window.open("/home", '_self');
+            }
+        }
+        if (!bvalid) alert("Invalid login");
+        return false;
+  });
+
+
   if ($("#ppm-toc-weibull").length > 0){
     computeStartMonthYear = function(){
       var currDate  = new Date()

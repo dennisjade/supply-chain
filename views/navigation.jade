@@ -3,16 +3,65 @@ header(role='banner')
     span.sr-only toggle navigation
     span.drawer-hamburger-icon
   nav.drawer-nav(role='navigation', style='top:57px')
-    .drawer-brand(style="font-size:12px")
+    .drawer-brand(style='font-size:12px')
       | Cognitive Engineering
-    ul.drawer-menu
-      li
-        a.drawer-menu-item(href='#') Home
-      li
-        a.drawer-menu-item(href='#') Raw Materials
-      li
-        a.drawer-menu-item(href='#') Supplier
-      li
-        a.drawer-menu-item(href='#') Manufacturing
-      li
-        a.drawer-menu-item(href='#') Customers
+    col(style='margin-left:12px')
+    ul.drawer-menu(style='font-size:12px')
+        li.dropdown(style='top:10px')
+            a(data-toggle='dropdown', href='#') Supplier Quality
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Subtier
+                li
+                    a(href='#') ICT/FCT
+                li
+                    a(href='#') Yield
+                li
+                    a(href='#') OQA
+                li
+                    a(href='#') ORT
+        li.dropdown(style='top:20px')
+            a(data-toggle='dropdown', href='#') Field Quality
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') PPM
+                li
+                    a(href='#') ARR
+                li
+                    a(href='#') Prediction
+        li.dropdown(style='top:30px')
+            a(data-toggle='dropdown', href='#') Misbranding
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Alerts Summary
+        li.dropdown(style='top:40px')
+            a(data-toggle='dropdown', href='#') Smarter Procurement
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Procurement Advisor
+                li
+                    a(href='#') ATCQ
+        li.dropdown(style='top:50px')
+            a(data-toggle='dropdown', href='#') Smarter Sell
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Sales Quality Advisor
+                li
+                    a(href='#') ATCS
+        li.dropdown(style='top:60px')
+            a(data-toggle='dropdown', href='#') Call Home
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Part Telemetry
+        li.dropdown(style='top:70px')
+            a(data-toggle='dropdown', href='#') Customer Sentiment
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') PMH
+        li.dropdown(style='top:80px')
+            a(data-toggle='dropdown', href='#') Social Media
+            ul.dropdown-menu(style='font-size:12px')
+                li
+                    a(href='#') Supply Disruption
+                li
+                    a(href='#') Technology Sentiment

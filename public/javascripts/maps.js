@@ -146,10 +146,9 @@
         });
   }
 
-  gpoint.on("mouseover", function(d) {
-              console.log("mouseover");
-    pnToolTip.html(d.RETCNT);
-  });
+  // gpoint.on("mouseover", function(d) {
+  //   pnToolTip.html(d.RETCNT);
+  // });
       }
   }
 }).call(this)
