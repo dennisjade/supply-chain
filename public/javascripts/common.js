@@ -81,7 +81,8 @@
           "elhoushy",
           "vivekp",
           "glogow",
-          "sgan"
+          "sgan",
+          "jamie"
         ];
         var pass = "1234";
         var psw = document.querySelector('#psw').value;
