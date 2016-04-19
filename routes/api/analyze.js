@@ -9,7 +9,7 @@
       var ret = {status:200, msg:'Success', data:null}
 
       //hardcoded sample
-      if (req.body.data.indexOf('what is your name')>=0){
+      if (req.body.data && req.body.data.toLowerCase().indexOf('what is your name')>=0){
         ret.status = 500;
         ret.msg = "My name is Genie."
         return res.json(ret)

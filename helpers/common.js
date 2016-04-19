@@ -125,7 +125,6 @@
 
         var year = null
         if (vintage.length>1){
-          console.log('aaaa', vintage[1].length, isNaN(vintage[1]))
           var year = vintage[1].length==YRLEN && !isNaN(vintage[1])?vintage[1]:null  
         }
         vintage = year==null||month==-1?null:year+'_'+month
