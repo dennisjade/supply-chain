@@ -83,7 +83,8 @@
           "vivekp",
           "glogow",
           "sgan",
-          "jamie"
+          "jamie",
+          "Vivek", "Ai Kiar" , "Julian" , "Sheena"
         ];
         var pass = "1234";
         var psw = document.querySelector('#psw').value;
