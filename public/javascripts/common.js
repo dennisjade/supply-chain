@@ -49,6 +49,7 @@
           loadSearch(response.data)
         else
           $("#response-message").html(response.msg)
+          textToSpeech(response.msg)
         return false;
       }, "json")
     //.always(function() { l.stop(); });

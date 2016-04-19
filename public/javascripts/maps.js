@@ -5,20 +5,20 @@
           .scaleExtent([1, 9])
           .on("zoom", move);
 
-  var width = 672,
-      height = 350;
+  var width = window.innerWidth * 0.90,
+      height = window.innerHeight * 0.60;
 
   var topo, projection, path, svg, g;
 
   var graticule = d3.geo.graticule();
 
-  var tooltip = d3.select("#container-map").append("div").attr("class", "tooltip hidden");
+  var tooltip = d3.select("#container-map").append("div").attr("class", "tooltip-map hidden");
 
   setup(width,height);
   function setup(width,height){
       projection = d3.geo.mercator()
           .translate([(width/2), (height/2)])
-          .scale( width / 3 / Math.PI);
+          .scale( width / 2.5 / Math.PI);
 
       path = d3.geo.path().projection(projection);
 
