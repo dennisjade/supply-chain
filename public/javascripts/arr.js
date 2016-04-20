@@ -53,90 +53,94 @@
       })
 
       //[{2016:[02,03]},{2015:[01]}]
-      // var sorted = _.groupBy(response.data, 'BUILT_YEAR_MONTH')
-      // var rows = ''
-      // var currYearProcess = ''
-      // var currIBMPN = ''
-      // _.each(sorted, function(item, key){
-      //   //currYearProcess = item.split('_').trim()[0]
-      //   if (currYearProcess!=subitem.BUILD_YEAR || currIBMPN!=subitem.IBMPN){
-      //     currYearProcess= subitem.BUILD_YEAR
-      //     currIBMPN = subitem.IBMPN
-      //     var row = '<tr>'+
-      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].GEO + ' ' + response.data[i].SUPPLIER + '</td>' +
-      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].DRIVENAME + '</td>' +
-      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].IBMPN + '</td>' +
-      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].CAPACITY + '</td>' +
-      //               '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].BUILD_YEAR + '</td>' +
-      //               '<td class="tg-yw4l">'+ item[0].BUILD_MTH +'</td>' +
-      //               '#{RETURNED_VALUES}' +
-      //               '<td class="tg-yw4l">'+item[0].VINTAGE_SHIPPED_QTY+'</td>' +
-      //               '<td class="tg-yw4l">'+item[0].VINTAGE_RETURNED_QTY+'</td>' +
-      //             '</tr>'
-      //   }else{
-      //     var row += '<tr>'+
-      //                 '<td class="tg-yw4l">'+item[key].BUILD_MTH+'</td>' +
-      //                 '#{RETURNED_VALUES}' +
-      //                 '<td class="tg-yw4l">'+item.VINTAGE_SHIPPED_QTY+'</td>' +
-      //                 '<td class="tg-yw4l">'+item.VINTAGE_RETURNED_QTY+'</td>' +
-      //                 '</tr>'
-      //   }
+      var sorted = _.groupBy(response.data, 'BUILT_YEAR_MONTH')
+      var rows = row = ''
+      var currYearProcess = ''
+      var currIBMPN = ''
+      var rowSpan = 0
+      _.each(sorted, function(item, key){
+        rowSpan ++
+        //currYearProcess = item.split('_').trim()[0]
+        if (currYearProcess!=item[0].BUILD_YEAR || currIBMPN!=item[0].IBMPN){
+          row = row.replace(/#{ROWSPAN}/g, rowSpan)
+          rows += row
+          currYearProcess= item[0].BUILD_YEAR
+          rowSpan = 0
+          currIBMPN = item[0].IBMPN
+          row = '<tr>'+
+                    '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].GEO + ' ' + item[0].SUPPLIER + '</td>' +
+                    '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].DRIVENAME + '</td>' +
+                    '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].IBMPN + '</td>' +
+                    '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].CAPACITY + '</td>' +
+                    '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ item[0].BUILD_YEAR + '</td>' +
+                    '<td class="tg-yw4l">'+ item[0].BUILD_MTH +'</td>' +
+                    '#{RETURNED_VALUES}' +
+                    '<td class="tg-yw4l">'+item[0].VINTAGE_SHIPPED_QTY+'</td>' +
+                    '<td class="tg-yw4l">'+item[0].VINTAGE_RETURNED_QTY+'</td>' +
+                  '</tr>'
+        }else{
+          row += '<tr>'+
+                      '<td class="tg-yw4l">'+item[0].BUILD_MTH+'</td>' +
+                      '#{RETURNED_VALUES}' +
+                      '<td class="tg-yw4l">'+item[0].VINTAGE_SHIPPED_QTY+'</td>' +
+                      '<td class="tg-yw4l">'+item[0].VINTAGE_RETURNED_QTY+'</td>' +
+                      '</tr>'
+        }
 
-      //   //loop into the return values
-      //   var arrValues = ''
-      //   var tempReturnDefault = returnDefault
-      //   _.each(item, function(subitem, key){
-      //     var yr_mth = subitem.RETURN_YEAR+'_'+subitem.RETURN_MTH
-      //     var idx = tempYearMonth.indexOf(yr_mth)
-      //     if ( idx >= 0) {
-      //       tempReturnDefault[idx] = tempReturnDefault[idx].replace('0.000', subitem.ARR.toFixed(3))
-      //       tempReturnDefault[idx] = tempReturnDefault[idx].replace('background-color-green', getArrColor(parseFloat(subitem.ARR)))
-      //     }
-      //   })
+        //loop into the return values
+        var arrValues = ''
+        var tempReturnDefault = returnDefault
+        _.each(item, function(subitem, key){
+          var yr_mth = subitem.RETURN_YEAR+'_'+subitem.RETURN_MTH
+          var idx = tempYearMonth.indexOf(yr_mth)
+          if ( idx >= 0) {
+            tempReturnDefault[idx] = tempReturnDefault[idx].replace('0.000', subitem.ARR.toFixed(3))
+            tempReturnDefault[idx] = tempReturnDefault[idx].replace('background-color-green', getArrColor(parseFloat(subitem.ARR)))
+          }
+        })
 
-      //   arrValues = tempReturnDefault.join('')
-
-      //   rowTable = row.replace(/#{RETURNED_VALUES}/g, arrValues)
-      //   rowTable = rowTable.replace(/#{ROWSPAN}/g, item.length) + rowBuild
-      //   rows += rowTablerows += rowTable
-      // })
-
+        arrValues = tempReturnDefault.join('')
+        row = row.replace(/#{RETURNED_VALUES}/g, arrValues)
+        
+      })
+      row = row.replace(/#{ROWSPAN}/g, rowSpan+1)
+      rows += row
 
       //start looping the records
-      var rows = ''
-      var rowTable = ''
-      var currYearProcess = null
-      for (var i=0; i<response.data.length;i++){
-        currYearProcess = response.data[i].BUILD_YEAR
-        rowTable = '<tr>'+
-                      '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].GEO + ' ' + response.data[i].SUPPLIER + '</td>' +
-                      '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].DRIVENAME + '</td>' +
-                      '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].IBMPN + '</td>' +
-                      '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].CAPACITY + '</td>' +
-                      '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].BUILD_YEAR + '</td>' +
-                      '<td class="tg-yw4l">'+response.data[i].BUILD_MTH+'</td>' +
-                      populateReturnValues(response.data, i, tempYearMonth) +
-                      '<td class="tg-yw4l">'+response.data[i].VINTAGE_SHIPPED_QTY+'</td>' +
-                      '<td class="tg-yw4l">'+response.data[i].VINTAGE_RETURNED_QTY+'</td>' +
-                    '</tr>'
+      // var rows = ''
+      // var rowTable = ''
+      // var currYearProcess = null
+      // for (var i=0; i<response.data.length;i++){
+      //   currYearProcess = response.data[i].BUILD_YEAR
+      //   rowTable = '<tr>'+
+      //                 '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].GEO + ' ' + response.data[i].SUPPLIER + '</td>' +
+      //                 '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].DRIVENAME + '</td>' +
+      //                 '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].IBMPN + '</td>' +
+      //                 '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].CAPACITY + '</td>' +
+      //                 '<td class="tg-yw4l" rowspan="#{ROWSPAN}">'+ response.data[i].BUILD_YEAR + '</td>' +
+      //                 '<td class="tg-yw4l">'+response.data[i].BUILD_MTH+'</td>' +
+      //                 populateReturnValues(response.data, i, tempYearMonth) +
+      //                 '<td class="tg-yw4l">'+response.data[i].VINTAGE_SHIPPED_QTY+'</td>' +
+      //                 '<td class="tg-yw4l">'+response.data[i].VINTAGE_RETURNED_QTY+'</td>' +
+      //               '</tr>'
 
-        var counter = i
-        var rowspan = 1
-        var rowBuild= ''
-        while (response.data[counter+1] && currYearProcess==response.data[counter+1].BUILD_YEAR) {
-          counter ++;
-          rowBuild += '<tr>'+
-                        '<td class="tg-yw4l">'+response.data[counter].BUILD_MTH+'</td>' +
-                        populateReturnValues(response.data, counter, tempYearMonth) +
-                        '<td class="tg-yw4l">'+response.data[counter].VINTAGE_SHIPPED_QTY+'</td>' +
-                        '<td class="tg-yw4l">'+response.data[counter].VINTAGE_RETURNED_QTY+'</td>' +
-                      '</tr>'
-          rowspan ++;
-        }
-        i = counter
-        rowTable = rowTable.replace(/#{ROWSPAN}/g, rowspan) + rowBuild
-        rows += rowTable
-      }
+      //   var counter = i
+      //   var rowspan = 1
+      //   var rowBuild= ''
+      //   while (response.data[counter+1] && currYearProcess==response.data[counter+1].BUILD_YEAR) {
+      //     counter ++;
+      //     rowBuild += '<tr>'+
+      //                   '<td class="tg-yw4l">'+response.data[counter].BUILD_MTH+'</td>' +
+      //                   populateReturnValues(response.data, counter, tempYearMonth) +
+      //                   '<td class="tg-yw4l">'+response.data[counter].VINTAGE_SHIPPED_QTY+'</td>' +
+      //                   '<td class="tg-yw4l">'+response.data[counter].VINTAGE_RETURNED_QTY+'</td>' +
+      //                 '</tr>'
+      //     rowspan ++;
+      //   }
+      //   i = counter
+      //   rowTable = rowTable.replace(/#{ROWSPAN}/g, rowspan) + rowBuild
+      //   rows += rowTable
+      // }
       //end looping the records
 
       var table = '<table class="tg">'+

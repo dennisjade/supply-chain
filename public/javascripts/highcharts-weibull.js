@@ -44,12 +44,14 @@
       };
 
     $.getJSON('/api/weibulltable?classType='+classType+'&partNumber='+partNumber+'&vintage='+vintage+'&format=highcharts', function(jsonData) {
+      if (jsonData.data.categories.length>0){
         options.title.text = jsonData.data.classType + ' Chart';
         options.subtitle.text = 'IBMPN:'+jsonData.data.partNumber+' Vintage:'+jsonData.data.vintage+' Prediction vs Actual';
         options.xAxis[0].categories = jsonData.data.categories
         options.series[0].data = jsonData.data['prediction'];
         options.series[1].data = jsonData.data['failureRate'];
         var chart = new Highcharts.Chart(options);
+      }
     });
   }
 
