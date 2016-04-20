@@ -162,6 +162,9 @@ a {
 .tg .tg-yw4l{vertical-align:top}
 */
 
+div#container-map{
+  padding-top:0px !important;
+}
 
 div.tooltip-map {
         position: absolute;
