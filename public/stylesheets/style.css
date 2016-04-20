@@ -167,16 +167,16 @@ div#container-map{
 }
 
 div.tooltip-map {
-        position: absolute;
-        text-align: center;
-        width: 100px;
-        height: 28px;
-        padding: 2px;
-        background: white;
-        font: 12px sans-serif;
-        border: 0px;
-        border-radius: 8px;
-        pointer-events: none;
+    position: absolute;
+    text-align: center;
+    width: 100px;
+    height: 28px;
+    padding: 2px;
+    background: white;
+    font: 12px sans-serif;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
 
 .hello-username{

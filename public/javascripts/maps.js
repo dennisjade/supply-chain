@@ -1,5 +1,5 @@
 (function(){
-  d3.select(window).on("resize", throttle);
+        d3.select(window).on("resize", throttle);
 
         var zoom = d3.behavior.zoom()
                 .scaleExtent([1, 9])
@@ -59,10 +59,11 @@
                     .attr("d", path)
           .attr("title", function(d) { return d.properties.name; })
           .style("fill", function(d) {
-            if (d.properties.hasOwnProperty('retcolor')) return d.properties.retcolor;
+            if (d.properties.hasOwnProperty('retcolor'))
+              return d.properties.retcolor;
           })
           .style("opacity", function(d, i) {
-            if (d.properties.hasOwnProperty('retcolor')) return 1;
+            if (d.properties.hasOwnProperty('retcolor')) return 0.8;
           });
 
 
@@ -83,6 +84,38 @@
         })
         .on("mouseout", function(d,i) {
           tooltip.classed("hidden", true);
+        });
+
+      var color_domain = [5, 10, 100, 250, 500, 750, 1000, 1250, 1500, 2500, 3000, 5000, 5001];
+      var ext_color_domain = [0, 5, 10, 100, 250, 500, 750, 1000, 1250, 1500, 2500, 3000, 5000];
+      var legend_labels = ["< 5", "< 10", "< 100", "< 250", "< 500", "< 750", "< 1000", "< 1250", "< 1500", "< 2500", "< 3000", "< 5000", "> 5000" ];
+      var color = d3.scale.threshold()
+        .domain(color_domain)
+        .range(["#ffffdb", "#ffffd6", "#ffffcc", "#fff0b3", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#e37e36", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"]);
+      var legend = svg.selectAll("g.legend")
+        .data(ext_color_domain)
+        .enter().append("g")
+        .attr("class", "legend");
+
+      var ls_w = 20, ls_h = 20;
+      legend.append("rect")
+        .attr("x", 15)
+        .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+        .attr("width", ls_w)
+        .attr("height", ls_h)
+        .style("fill", function(d, i) {
+          return color(d);
+        })
+        .style("opacity", 0.8);
+
+      legend.append("text")
+        .attr("x", 40)
+        .attr("y", function(d, i){
+          return height - (i*ls_h) - ls_h - 4;
+        })
+        .style("font-size", "12px")
+        .text(function(d, i){
+          return legend_labels[i];
         });
         }
 
