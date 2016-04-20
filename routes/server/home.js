@@ -6,8 +6,11 @@
 
     showHome = function(req, res) {
       var username = commonHelpers.capitalizeFirstLetter(commonHelpers.parseCookies(req.headers.cookie)['username'].replace("'",''))
-      var json = {page: 'home', username: username}
+      var json = {page: 'home', username: username, isFirstTime: req.session.isFirstTime}
+
+      req.session.isFirstTime = false
       return res.render('home.jade', json)
+      
     }
 
     app.get('/home', showHome)

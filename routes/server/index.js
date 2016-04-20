@@ -4,8 +4,11 @@
     //PPM = require('../../models/ppm')
 
     showIndex = function(req, res) {
-      var json = {page: 'index'};
-      return res.render('index.jade', json);
+      if (req.session.isFirstTime){
+        var json = {page: 'index'};
+        return res.render('index.jade', json);
+      }else
+        res.redirect('/home')
     }
 
     app.get('/', showIndex)

@@ -71,7 +71,10 @@
   }
 
   if ( $('#home-page').length >= 0 ){
-    textToSpeech($('.hello-username').html())
+    if ($('input[name=isFirstTime]').val()=='true' || $('input[name=isFirstTime]').val()=='undefined')
+      textToSpeech($('.hello-username').html())
+    else
+      $('.hello-username').addClass('hidden')
   }
 
   $('#sbmt').on("click", function(e) {

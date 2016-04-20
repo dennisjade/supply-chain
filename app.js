@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
+var session = require('express-session')
+var uuid = require('node-uuid');
 var app = express();
 
 // view engine setup
@@ -18,7 +20,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  genid: function(req) {
+    return uuid.v4() // use UUIDs for session IDs 
+  },
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
 require('./routes')(app);
 
 // catch 404 and forward to error handler
