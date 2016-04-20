@@ -27,7 +27,7 @@
                 return item.Prediction?parseFloat(item.Prediction.toFixed(5)):0
             })
             var failureRate = _.map(docs, function(item, key) {
-              return item['Failure Rate']?parseFloat(item['Failure Rate'].toFixed(5)):0
+              return item['Failure Rate']?parseFloat(item['Failure Rate'].toFixed(5)):null
             })
 
             var data = {

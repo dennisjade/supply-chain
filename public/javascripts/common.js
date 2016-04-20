@@ -70,6 +70,10 @@
     $("#submitSearchResult").submit()
   }
 
+  if ( $('#home-page').length >= 0 ){
+    textToSpeech($('.hello-username').html())
+  }
+
   $('#sbmt').on("click", function(e) {
         var users = [
                     "carlo",
