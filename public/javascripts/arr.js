@@ -53,7 +53,6 @@
       })
 
       //[{2016:[02,03]},{2015:[01]}]
-
       // var sorted = _.groupBy(response.data, 'BUILT_YEAR_MONTH')
       // var rows = ''
       // var currYearProcess = ''

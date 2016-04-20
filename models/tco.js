@@ -19,7 +19,7 @@
           console.log('Error getting TCO: ', err);
           callback(err,null)
         } else {
-          console.log(err, rows, docs)
+          //console.log(err, rows, docs)
           callback(null, rows)
         }
       });

@@ -21,7 +21,7 @@
           console.log('Error getting WEIBULL: ', err);
           callback(err,null)
         } else {
-          console.log(err, rows, docs[0])
+          //console.log(err, rows, docs[0])
           callback(null, rows[0])
         }
       });

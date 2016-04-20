@@ -37,7 +37,7 @@
     }
 
     getFlagMatrix = function(partNumber, vintage, callback){
-      flagMatrixModel.getFlagMatrix(partNumber, function(err, docs){
+      flagMatrixModel.getFlagMatrix(partNumber, vintage, function(err, docs){
         if (err){
           console.log('Error getting FLAG METRIX ', err)
           callback(err, null)

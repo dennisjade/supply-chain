@@ -35,6 +35,12 @@
     }
   });
 
+  $('#transcript').keypress(function (e) {
+    var keyCode = (event.keyCode ? event.keyCode : event.which);   
+    if (keyCode == 13)
+      $(".makeSearch").trigger('click');
+  })
+
   $(".makeSearch").on("click", function (e){
     //e.preventDefault();
     $("#response-message").html('');
@@ -47,15 +53,15 @@
         l.stop();
         if (response.status==200)
           loadSearch(response.data)
-        else
+        else{
           $("#response-message").html(response.msg)
           textToSpeech(response.msg)
+        }
         return false;
-      }, "json")
-    //.always(function() { l.stop(); });
-    
-    
+    }, "json").fail(function(e){console.log(e)})
+    .always(function(e) { console.log(e) });
   })
+
 
   loadSearch= function(data){
     $("input[name=classType]").val(data.classType);
@@ -66,26 +72,27 @@
 
   $('#sbmt').on("click", function(e) {
         var users = [
-          "gaguigc",
-          "chanab",
-          "angak",
-          "tohpjb",
-          "neohk",
-          "js9m",
-          "jfritz",
-          "lowlgj",
-          "kdore",
-          "luliu",
-          "corralmg",
-          "matt",
-          "bobedge",
-          "elhoushy",
-          "vivekp",
-          "glogow",
-          "sgan",
-          "jamie",
-          "Vivek", "Ai Kiar" , "Julian" , "Sheena"
-        ];
+                    "carlo",
+                    "ab",
+                    "aikiar", //no space
+                    "benjamin",
+                    "neo",
+                    "jason",
+                    "jeff",
+                    "joyce",
+                    "kevin",
+                    "luliu",
+                    "marilyn",
+                    "matthew",
+                    "robert",
+                    "tarek",
+                    "vivek",
+                    "walter",
+                    "sheena",
+                    "julian",
+                    "tibor",
+                    "jamie"
+                    ];
         var pass = "1234";
         var psw = document.querySelector('#psw').value;
         var bvalid = false;
