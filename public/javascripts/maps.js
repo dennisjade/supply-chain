@@ -68,8 +68,8 @@
 
 
             //offsets for tooltips
-            var offsetL = document.getElementById('container').offsetLeft +20;
-            var offsetT = document.getElementById('container').offsetTop + 10;
+            var offsetL = document.getElementById('container-map').offsetLeft +20;
+            var offsetT = document.getElementById('container-map').offsetTop + 10;
 
             //tooltips
             country
@@ -120,7 +120,7 @@
         }
 
         function redraw() {
-            width = document.getElementById('container').offsetWidth;
+            width = document.getElementById('container-map').offsetWidth;
             height = width / 2;
             d3.select('svg').remove();
             setup(width,height);
