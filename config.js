@@ -30,7 +30,7 @@
             }, props.ttsConfig)
   }
 
-  config.yesnoPPMMsg = props.yesnoPPMMsg || "Hi #{username}, \n\n Here is the #{classType} table for IBMPN #{partNumber}. \n#{trend1} and the trend is #{trend2}. \n\nThere are ARR got #{alertsCount} alerts. \n\nDo you want to check its performance by Vintage?"
+  config.yesnoPPMMsg = props.yesnoPPMMsg || "Hi #{username}, \n\n Here is the #{classType} table for IBMPN #{partNumber}. \n#{trend1} and the trend is #{trend2}. \n\nThere are #{alertsCount} ARR alerts. \n\nDo you want to check its performance by Vintage?"
   config.yesnoARRMsg = props.yesnoARRMsg || "Hi #{username}, \n\n Here is the #{classType} performance for IBMPN #{partNumber}. \nIt has #{alertsCount} alerts. Quality Index is #{qualityIndex}, rank at #{rank} position. \n\n Do you want to notify technical support team?"
   config.yesnoTCOMsg = props.yesnoTCOMsg || "Hi #{username}, \n\n Here is the #{classType} performance for IBMPN #{partNumber}.\n\n #{bucketDesc} #{flagDesc} \n\n Do you want to notify technical support team?"
   config.yesnoWEIBULLMsg = props.yesnoWEIBULLMsg || "Hi #{username}, \n\n Here is the #{classType} prediction for IBMPN #{partNumber}, Vintage #{vintageNumber}. \n\n The 5-year projection for this IBMPN and vintage is #{prediction}. \n\n Do you want to notify technical support team?"
