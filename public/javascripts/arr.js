@@ -195,10 +195,12 @@
 
     $('.yesno-arr').on('click', '.yes-arr', function(response){
       $(".yesno-arr").html('Done!')
+      textToSpeech('Done!')
     })
 
     successCallbackNoARR = function(response){
       $(".yesno-arr").html(response.data)
+      textToSpeech(response.data)
     }
 
     $('.yesno-arr').on('click', '.no-arr', function(){

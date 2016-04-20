@@ -17,14 +17,16 @@
 
     $('.yesno-overall').on('click', '.yes-overall', function(response){
       $(".yesno-overall").html('Done!')
+      textToSpeech('Done!')
     })
 
     successCallbackNoOverall = function(response){
       $(".yesno-overall").html(response.data)
+      textToSpeech(response.data)
     }
 
     $('.yesno-overall').on('click', '.no-overall', function(){
-      $.get('/api/no-overall'+params, successCallbackNoOverall)
+      $.get('/api/no-overall?'+params, successCallbackNoOverall)
     })
 
   }

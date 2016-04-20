@@ -49,10 +49,12 @@
 
     $('.yesno-tco').on('click', '.yes-tco', function(response){
       $(".yesno-tco").html('Done!')
+      textToSpeech('Done!')
     })
 
     successCallbackNoTCO = function(response){
       $(".yesno-tco").html(response.data)
+      textToSpeech(response.data)
     }
 
     $('.yesno-tco').on('click', '.no-tco', function(){

@@ -62,10 +62,12 @@
 
     $('.yesno-weibull').on('click', '.yes-weibull', function(response){
       $(".yesno-weibull").html('Done!')
+      textToSpeech('Done!')
     })
 
     successCallbackNoWeibull = function(response){
       $(".yesno-weibull").html(response.data)
+      textToSpeech(response.data)
     }
 
     $('.yesno-weibull').on('click', '.no-weibull', function(){

@@ -95,6 +95,7 @@
 
     successCallbackNoPPM = function(response){
       $(".yesno-ppm").html(response.data)
+      textToSpeech(response.data)
     }
 
     $('.yesno-ppm').on('click', '.no-ppm', function(){
