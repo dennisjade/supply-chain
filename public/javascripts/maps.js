@@ -78,7 +78,7 @@
               var dispTxt = d.properties.name + ' : ' + d.properties.ret;
             var mouse = d3.mouse(svg.node()).map( function(d) { return parseInt(d); } );
             tooltip.classed("hidden", false)
-              .attr("style", "left:"+(mouse[0]+offsetL)+"px;top:"+(mouse[1]+offsetT)+"px")
+              .attr("style", "left:"+(mouse[0]+offsetL)+"px;top:"+(mouse[1]+offsetT)+"px;color:#000000")
               .html(dispTxt);
           }
         })
