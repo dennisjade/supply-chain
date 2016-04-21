@@ -6,7 +6,7 @@
                 .on("zoom", move);
 
         var width = window.innerWidth * 0.90,
-            height = window.innerHeight * 0.60;
+            height = window.innerHeight * 0.70;
 
         var topo, projection, path, svg, g, country;
 

@@ -70,8 +70,8 @@
     $("#submitSearchResult").submit()
   }
 
-  if ( $('#home-page').length >= 0 ){
-    if ($('input[name=isFirstTime]').val()=='true' || $('input[name=isFirstTime]').val()=='undefined')
+  if ( $('#home-page').length > 0 ){
+    if ($('input[name=isFirstTime]').val()=='true' || $('input[name=isFirstTime]').val()=='undefined' || $('input[name=isFirstTime]').val()==undefined)
       textToSpeech($('.hello-username').html())
     else
       $('.hello-username').addClass('hidden')
