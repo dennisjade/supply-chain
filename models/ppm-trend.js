@@ -5,7 +5,7 @@
       
       //connString = "DATABASE=SQLDB;HOSTNAME=75.126.155.153;PORT=50000;PROTOCOL=TCPIP;UID=user15506;PWD=SAIL2RSdn8Z3;";
 
-  module.exports.getTrends = function(partNumber, options, callback) {
+  module.exports.getTrends = function(partNumber, callback) {
     try {
 
         if (!global.dbConn.connected)
@@ -25,23 +25,22 @@
             callback(err,null)
           } else {
             //console.log(err, docs)
-            if (rows[0].length>0)
+            if (rows[0])
               callback(null, rows[0])
             else{
               query = "select PPM_FLAG, PPM_FLAG_TEXT, TREND_TEXT from PPM_TREND where" +
                     " IBMPN='"+partNumber.toUpperCase()+"'" +
                     " ORDER BY "+
-                    " CAST((REPLACE(BUILT_YEAR_MONTH,'_','-') || '-1' ) as DATE) DESC, " +
-                    " CAST((REPLACE(CALENDER_YEAR_MONTH,'_','-') || '-1' ) as DATE) DESC" + 
+                    " CAST((REPLACE(PERIOD_YEAR_MONTH,'_','-') || '-1' ) as DATE) DESC " +
                     " FETCH FIRST 1 ROWS ONLY "
-              console.log('getPPMTrends: Attempting to get the whatever is the latest data we have')
+              console.log('getPPMTrends: Attempting to get whatever is the latest data we have')
               global.dbConn.query(query, function (err, rows2, docs) {
                 if (err) {
                   callback(err, null)
                 }else{
                   callback(null, rows2[0])
                 }
-              }
+              })
             }
           }
         });
